@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>ilumn | Family Redux + Versions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-gradient: radial-gradient(circle at 30% 20%, #0f0f18 0%, #050508 100%);
+            --glass-bg: rgba(12, 12, 20, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.04);
+            --glass-border-hover: rgba(255, 255, 255, 0.3);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0b5;
+            --text-muted: #6a6a80;
+            --accent: #ffffff;
+            --accent-glow: rgba(255, 255, 255, 0.06);
+            --backdrop-blur: blur(16px);
+            --toast-bg: rgba(20, 20, 30, 0.95);
+            --neon-glow: 0 0 5px rgba(255,255,255,0.3), 0 0 12px rgba(255,255,255,0.15);
+            --neon-border: 0 0 0 1px rgba(255,255,255,0.08), 0 0 0 2px rgba(255,255,255,0);
+            --neon-hover: 0 0 0 1px rgba(255,255,255,0.4), 0 0 8px rgba(255,255,255,0.3), 0 0 16px rgba(255,255,255,0.1);
+            --btn-review: rgba(59, 130, 246, 0.2);
+            --btn-review-hover: rgba(59, 130, 246, 0.4);
+            --btn-download: rgba(34, 197, 94, 0.2);
+            --btn-download-hover: rgba(34, 197, 94, 0.4);
+            --btn-inactive: rgba(100, 100, 120, 0.2);
+            --btn-inactive-hover: rgba(100, 100, 120, 0.3);
+            --btn-inactive-color: #8888aa;
+            --btn-copy: rgba(168, 85, 247, 0.2);
+            --btn-copy-hover: rgba(168, 85, 247, 0.4);
+        }
+
+        [data-theme="light"] {
+            --bg: #e8e8f0;
+            --bg-gradient: none;
+            --glass-bg: rgba(250, 250, 255, 0.75);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-border-hover: rgba(0, 0, 0, 0.25);
+            --text-primary: #111111;
+            --text-secondary: #444455;
+            --text-muted: #88889a;
+            --accent-glow: rgba(0, 0, 0, 0.04);
+            --toast-bg: rgba(240, 240, 245, 0.95);
+            --neon-glow: 0 0 4px rgba(0,0,0,0.2), 0 0 8px rgba(0,0,0,0.1);
+            --neon-border: 0 0 0 1px rgba(0,0,0,0.05);
+            --neon-hover: 0 0 0 1px rgba(0,0,0,0.2), 0 0 6px rgba(0,0,0,0.1);
+            --btn-review: rgba(59, 130, 246, 0.1);
+            --btn-review-hover: rgba(59, 130, 246, 0.25);
+            --btn-download: rgba(34, 197, 94, 0.1);
+            --btn-download-hover: rgba(34, 197, 94, 0.25);
+            --btn-inactive: rgba(100, 100, 120, 0.1);
+            --btn-inactive-hover: rgba(100, 100, 120, 0.2);
+            --btn-copy: rgba(168, 85, 247, 0.1);
+            --btn-copy-hover: rgba(168, 85, 247, 0.25);
+        }
+
+        body {
+            background: var(--bg);
+            background-image: var(--bg-gradient);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            transition: background 0.3s ease, background-image 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .glass-item, .family-brand-item, .top-item, .category {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        .glass-item:nth-child(1) { animation-delay: 0.05s; }
+        .glass-item:nth-child(2) { animation-delay: 0.1s; }
+        .glass-item:nth-child(3) { animation-delay: 0.15s; }
+        .glass-item:nth-child(4) { animation-delay: 0.2s; }
+        .family-brand-item:nth-child(1) { animation-delay: 0.05s; }
+        .family-brand-item:nth-child(2) { animation-delay: 0.1s; }
+        .family-brand-item:nth-child(3) { animation-delay: 0.15s; }
+
+        .skeleton {
+            background: var(--glass-bg);
+            border-radius: 14px;
+            padding: 0.7rem 1rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .skeleton::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            animation: skeleton-loading 1.5s infinite;
+        }
+        @keyframes skeleton-loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .skeleton-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .skeleton-btn {
+            width: 52px;
+            height: 36px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+        }
+        .skeleton-text {
+            flex: 1;
+            height: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+        [data-theme="light"] ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .container {
+            max-width: 1300px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 1rem 1rem 1.5rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff, #c0c0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: var(--neon-glow);
+        }
+
+        [data-theme="light"] .logo h1 {
+            background: linear-gradient(135deg, #222, #555);
+            -webkit-background-clip: text;
+            background-clip: text;
+            text-shadow: none;
+        }
+
+        .header-stats {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .theme-toggle {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--neon-hover);
+            transform: scale(1.02);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.6;
+        }
+
+        [data-theme="dark"] .theme-toggle .sun-icon,
+        .theme-toggle .moon-icon { display: none; }
+        [data-theme="dark"] .theme-toggle .moon-icon { display: block; }
+        [data-theme="dark"] .theme-toggle .sun-icon { display: none; }
+        [data-theme="light"] .theme-toggle .sun-icon { display: block; }
+        [data-theme="light"] .theme-toggle .moon-icon { display: none; }
+
+        .search-section {
+            margin-bottom: 1.5rem;
+        }
+        .global-search {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .global-search input {
+            flex: 1;
+            padding: 0.7rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .global-search input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-secondary);
+        }
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--glass-border-hover);
+            color: var(--text-primary);
+        }
+        .filter-btn:hover {
+            border-color: var(--glass-border-hover);
+            transform: scale(0.98);
+        }
+        .sort-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: auto;
+        }
+        .sort-btn {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.65rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+        .sort-btn.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--text-primary);
+        }
+        .sort-btn:hover {
+            border-color: var(--glass-border-hover);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--toast-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 10px 24px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            z-index: 1000;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .main-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .category {
+            flex: 1;
+            min-width: 280px;
+            max-width: 340px;
+        }
+
+        .category-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .category-title svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .category-sub {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+
+        .item-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .glass-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 14px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--neon-border);
+        }
+
+        .glass-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-hover);
+        }
+
+        .glass-item:active {
+            transform: scale(0.98);
+            transition: transform 0.05s ease;
+        }
+
+        .glass-item.active {
+            box-shadow: var(--neon-hover);
+        }
+
+        .item-main-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1rem;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .item-main-row::after {
+            content: '▼';
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+        .glass-item.active .item-main-row::after {
+            transform: rotate(180deg);
+        }
+
+        .item-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex-shrink: 0;
+            min-width: 52px;
+        }
+
+        .btn-review, .btn-download, .btn-copy {
+            border: none;
+            border-radius: 16px;
+            padding: 0.1rem 0.35rem;
+            font-size: 0.55rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 500;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .btn-review.active-btn {
+            background: var(--btn-review);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+        .btn-review.active-btn:hover {
+            background: var(--btn-review-hover);
+            transform: scale(0.95);
+        }
+
+        .btn-download.active-btn {
+            background: var(--btn-download);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+        .btn-download.active-btn:hover {
+            background: var(--btn-download-hover);
+            transform: scale(0.95);
+        }
+
+        .btn-review.inactive-btn, .btn-download.inactive-btn {
+            background: var(--btn-inactive);
+            border: 1px solid rgba(100, 100, 120, 0.3);
+            color: var(--btn-inactive-color);
+            cursor: not-allowed;
+        }
+
+        .btn-copy {
+            background: var(--btn-copy);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+            cursor: pointer;
+        }
+        .btn-copy:hover {
+            background: var(--btn-copy-hover);
+            transform: scale(0.95);
+        }
+
+        .item-info {
+            flex: 1;
+            text-align: center;
+        }
+        .item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: -0.2px;
+        }
+        .item-date {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .item-expand {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.05);
+        }
+        .item-expand > div {
+            overflow: hidden;
+        }
+        .glass-item.active .item-expand {
+            grid-template-rows: 1fr;
+        }
+        .expand-content {
+            padding: 0 1rem 0.9rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .expand-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.45;
+            margin-bottom: 0.5rem;
+            margin-top: 0.7rem;
+        }
+
+        .family-brand-item {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 14px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0.8rem;
+            box-shadow: var(--neon-border);
+        }
+
+        .family-brand-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-hover);
+        }
+
+        .family-brand-item.active {
+            box-shadow: var(--neon-hover);
+        }
+
+        .brand-main-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1rem;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .brand-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex-shrink: 0;
+            min-width: 52px;
+        }
+
+        .brand-info {
+            flex: 1;
+            text-align: center;
+        }
+        .brand-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .brand-date {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .versions-container {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.05);
+        }
+        .versions-container > div {
+            overflow: hidden;
+        }
+        .family-brand-item.active .versions-container {
+            grid-template-rows: 1fr;
+        }
+        .versions-inner {
+            padding: 0 1rem 0.9rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        .version-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 0.5rem 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+        .version-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(3px);
+        }
+        .version-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            flex-shrink: 0;
+            min-width: 40px;
+        }
+        .version-review-btn, .version-download-btn, .version-copy-btn {
+            border: none;
+            border-radius: 14px;
+            padding: 0.08rem 0.3rem;
+            font-size: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 500;
+            text-align: center;
+        }
+        .version-review-btn.active-btn {
+            background: var(--btn-review);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+        .version-download-btn.active-btn {
+            background: var(--btn-download);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+        .version-review-btn.inactive-btn, .version-download-btn.inactive-btn {
+            background: var(--btn-inactive);
+            border: 1px solid rgba(100, 100, 120, 0.3);
+            color: var(--btn-inactive-color);
+            cursor: not-allowed;
+        }
+        .version-copy-btn {
+            background: var(--btn-copy);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+            cursor: pointer;
+        }
+        .version-info {
+            flex: 1;
+            text-align: center;
+        }
+        .version-name {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .version-date {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            margin-top: 0.1rem;
+        }
+        .versions-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin: 0.8rem 0 0.2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .family-section {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .family-header {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 20px;
+            padding: 0.9rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--neon-border);
+        }
+        .family-header:hover {
+            box-shadow: var(--neon-hover);
+            transform: scale(1.01);
+        }
+        .family-header:active {
+            transform: scale(0.99);
+        }
+        .family-header h3 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .family-header span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .accordion-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+        }
+        .family-header.open .accordion-arrow {
+            transform: rotate(180deg);
+        }
+        .family-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.05);
+            margin-top: 0;
+        }
+        .family-content > div {
+            overflow: hidden;
+        }
+        .family-content.open {
+            grid-template-rows: 1fr;
+            margin-top: 0.8rem;
+        }
+        .family-inner {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border-radius: 20px;
+            padding: 1rem;
+            box-shadow: var(--neon-border);
+        }
+
+        .search-box {
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .search-box input:focus {
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+        .search-stats {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.4rem;
+            text-align: right;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 0.7rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .top-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+        .top-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 0.6rem 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-left: 3px solid var(--accent);
+            transition: all 0.2s;
+            box-shadow: var(--neon-border);
+        }
+        .top-item:hover {
+            background: var(--accent-glow);
+            transform: translateX(3px);
+            box-shadow: var(--neon-hover);
+        }
+        .top-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            flex-shrink: 0;
+            min-width: 38px;
+        }
+        .top-review-btn, .top-download-btn, .top-copy-btn {
+            border: none;
+            border-radius: 14px;
+            padding: 0.08rem 0.25rem;
+            font-size: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 500;
+            text-align: center;
+        }
+        .top-review-btn.active-btn {
+            background: var(--btn-review);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+        .top-download-btn.active-btn {
+            background: var(--btn-download);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+        .top-copy-btn {
+            background: var(--btn-copy);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+        }
+        .top-rank {
+            font-size: 1rem;
+            min-width: 32px;
+        }
+        .top-info {
+            flex: 1;
+            text-align: center;
+        }
+        .top-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .top-date {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 0.1rem;
+        }
+
+        .brands-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid var(--glass-border);
+        }
+        
+        .discord-text {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+        .discord-nick {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 0.3rem 1.2rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            box-shadow: var(--neon-border);
+        }
+        .info-text {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0.8rem; }
+            .brand-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
+            .item-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
+            .brand-buttons, .item-buttons { min-width: 48px; }
+            .btn-review, .btn-download, .btn-copy { font-size: 0.45rem; padding: 0.05rem 0.2rem; }
+            .brand-name, .item-name { font-size: 0.7rem; }
+            .toast { font-size: 0.75rem; white-space: nowrap; padding: 8px 18px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <h1>ilumn</h1>
+        </div>
+        <div class="header-stats" id="totalModsCount">📦 всего модов: 0</div>
+        <button class="theme-toggle" id="themeToggle">
+            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor"/></svg>
+        </button>
+    </div>
+
+    <div class="search-section">
+        <div class="global-search">
+            <input type="text" id="globalSearch" placeholder="🔍 Поиск модов по всем категориям..." autocomplete="off">
+            <div class="sort-buttons">
+                <button class="sort-btn" data-sort="popular">📊 по популярности</button>
+                <button class="sort-btn" data-sort="name">🔤 по названию</button>
+            </div>
+        </div>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Все</button>
+            <button class="filter-btn" data-filter="sounds">🎧 Звуки</button>
+            <button class="filter-btn" data-filter="gunpac">🔫 Оружие</button>
+            <button class="filter-btn" data-filter="timemap">⏰ TIME/MAP</button>
+            <button class="filter-btn" data-filter="family">👨‍👩‍👧‍👦 Семьи</button>
+        </div>
+    </div>
+
+    <div class="main-grid" id="mainGrid">
+        <div class="category" data-category="sounds">
+            <div class="category-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4a2 2 0 0 0 2 2h2l4 4V4L7 8H5a2 2 0 0 0-2 2z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg>
+                ЗВУКИ / СПЕШ / ТЯЖК / САЙГ
+            </div>
+            <div class="category-sub">sound packs · voice · heavy · sige</div>
+            <ul class="item-list" id="soundsList"></ul>
+        </div>
+
+        <div class="category" data-category="gunpac">
+            <div class="category-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 12h4l2 2-2 2h-4"/><path d="M18 8h-4v8h4"/><path d="M10 12H6l-2-2 2-2h4"/><path d="M6 8h4v8H6"/><circle cx="12" cy="12" r="2"/></svg>
+                GUNPAC
+            </div>
+            <div class="category-sub">оружие · анимации · звуки выстрелов</div>
+            <ul class="item-list" id="gunpacList"></ul>
+        </div>
+
+        <div class="category" data-category="timemap">
+            <div class="category-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4 4 L8 8"/><path d="M20 4 L16 8"/></svg>
+                TIME / MAP
+            </div>
+            <div class="category-sub">таймциклы · уникальные карты</div>
+            <ul class="item-list" id="timemapList"></ul>
+        </div>
+    </div>
+
+    <div class="family-section">
+        <div class="family-header" id="familyHeader">
+            <div>
+                <h3>👨‍👩‍👧‍👦 Семейные редуксы</h3>
+                <span>редуксы от топовых семей · с версиями</span>
+            </div>
+            <div class="accordion-arrow">▼</div>
+        </div>
+        <div class="family-content" id="familyContent">
+            <div>
+                <div class="family-inner">
+                    <div class="search-box">
+                        <input type="text" id="brandSearch" placeholder="🔍 Поиск семей и редуксов..." autocomplete="off">
+                        <div class="search-stats" id="searchStats"></div>
+                    </div>
+                    
+                    <div class="top-section">
+                        <div class="section-label">⭐ ПОПУЛЯРНЫЕ ПО СКАЧИВАНИЯМ</div>
+                        <div class="top-items" id="topReduxList"></div>
+                    </div>
+                    
+                    <div class="section-label">🏷️ РЕДУКСЫ ПО СЕМЬЯМ</div>
+                    <div class="brands-list" id="brandsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="discord-text">Discord:</div>
+        <div class="discord-nick">0po5</div>
+        <div class="info-text">
+            По предложениям добавления модификаций на сайт (публичные/личные)<br>
+            прошу написать мне в личные сообщения Discord
+        </div>
+    </div>
+</div>
+
+<script>
+    // === ДАННЫЕ ===
+    const DEFAULT_DATE = "15.06.2026";
+
+    const soundsData = [
+        { id: "spec", name: "spec", downloads: 0, desc: "звуки на спешик", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: DEFAULT_DATE },
+        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, desc: "звуки на сайгу", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "revolver", name: "revolver", downloads: 0, desc: "ревик", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, desc: "хевик1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+    ];
+
+    const gunpacData = [
+        { id: "gun-black", name: "gun/black", downloads: 0, desc: "ганы в темном стиле", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-white", name: "gun/white", downloads: 0, desc: "ганы в белом стиле", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, desc: "различные цвета", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, desc: "смешанные цвета", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+    ];
+
+    const timemapData = [
+        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, desc: "таймы (небо/облака/день/ночь)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "farm-map", name: "farm map", downloads: 0, desc: "мапа для фарма", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "mcl-map", name: "Mcl map", downloads: 0, desc: "Mcl зоны", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "mini-map", name: "Mini map", downloads: 0, desc: "мини мапа в углу/по центру", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+    ];
+
+    const familyBrands = [
+        { 
+            name: "Gucci", 
+            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, desc: "редукс от Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, desc: "редукс от Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
+        },
+        { 
+            name: "Glow", 
+            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, desc: "редукс от Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Skye", 
+            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, desc: "редукс от Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        }
+    ];
+
+    let clickCount = 0;
+    let currentFilter = "all";
+    let currentSort = "popular";
+    let globalSearchQuery = "";
+    let familySearchQuery = "";
+
+    function showToast(message, duration = 2000) {
+        let toast = document.querySelector('.toast');
+        if (toast) toast.remove();
+        toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.classList.add('show'), 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+
+    function updateTotalModsCount() {
+        const total = soundsData.length + gunpacData.length + timemapData.length + 
+            familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
+        document.getElementById('totalModsCount').innerText = `📦 всего модов: ${total}`;
+    }
+
+    function copyModLink(modId, modName) {
+        const url = `${window.location.origin}${window.location.pathname}#mod-${modId}`;
+        navigator.clipboard.writeText(url).then(() => {
+            showToast(`🔗 Ссылка на "${modName}" скопирована!`, 1200);
+        }).catch(() => {
+            showToast(`❌ Не удалось скопировать ссылку`, 1000);
+        });
+    }
+
+    function openReview(url, name, event) {
+        if (!url) {
+            showToast(`⚠️ Обзор для "${name}" пока не добавлен!`, 1500);
+            return;
+        }
+        if (event && event.target) {
+            const btn = event.target;
+            btn.style.transform = 'scale(0.92)';
+            setTimeout(() => { btn.style.transform = ''; }, 150);
+        }
+        window.open(url, '_blank');
+        showToast(`🔍 Открываем обзор "${name}"...`, 1000);
+    }
+
+    function handleDownload(url, name, event) {
+        if (!url) {
+            showToast(`⚠️ Ссылка на скачивание "${name}" пока не добавлена!`, 1500);
+            return;
+        }
+        if (event && event.target) {
+            const btn = event.target;
+            btn.style.transform = 'scale(0.92)';
+            setTimeout(() => { btn.style.transform = ''; }, 150);
+        }
+        showToast(`📦 Начинаем скачивание "${name}"...`, 800);
+        setTimeout(() => {
+            window.open(url, '_blank');
+            showToast(`✅ "${name}" начал скачивание!`, 1500);
+            clickCount++;
+        }, 300);
+    }
+
+    function getButtonClass(hasLinks) {
+        return hasLinks ? 'active-btn' : 'inactive-btn';
+    }
+
+    function showSkeleton() {
+        const containers = ['soundsList', 'gunpacList', 'timemapList', 'brandsList', 'topReduxList'];
+        containers.forEach(id => {
+            const container = document.getElementById(id);
+            if (container && id !== 'topReduxList') {
+                container.innerHTML = '<div class="skeleton"><div class="skeleton-row"><div class="skeleton-btn"></div><div class="skeleton-text"></div></div></div>'.repeat(3);
+            } else if (container && id === 'topReduxList') {
+                container.innerHTML = '<div class="skeleton"><div class="skeleton-row"><div class="skeleton-btn"></div><div class="skeleton-text"></div></div></div>'.repeat(3);
+            }
+        });
+    }
+
+    function attachEvents() {
+        document.querySelectorAll('.btn-review.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.btn-download.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.btn-copy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+        document.querySelectorAll('.glass-item').forEach(item => {
+            const mainRow = item.querySelector('.item-main-row');
+            if (mainRow) {
+                mainRow.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('btn-review') || e.target.classList.contains('btn-download') || e.target.classList.contains('btn-copy')) return;
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    }
+
+    function attachFamilyEvents() {
+        document.querySelectorAll('.brand-buttons .btn-review.active-btn, .family-brand-item > .brand-main-row .btn-review.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.brand-buttons .btn-download.active-btn, .family-brand-item > .brand-main-row .btn-download.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.brand-buttons .btn-copy, .family-brand-item > .brand-main-row .btn-copy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+        document.querySelectorAll('.version-review-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.version-download-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.version-copy-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+        document.querySelectorAll('.family-brand-item').forEach(item => {
+            const mainRow = item.querySelector('.brand-main-row');
+            if (mainRow) {
+                mainRow.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('btn-review') || e.target.classList.contains('btn-download') || e.target.classList.contains('btn-copy') ||
+                        e.target.classList.contains('version-review-btn') || e.target.classList.contains('version-download-btn') || e.target.classList.contains('version-copy-btn')) return;
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    }
+
+    function renderSounds() {
+        const container = document.getElementById('soundsList');
+        let filtered = [...soundsData];
+        
+        if (globalSearchQuery) {
+            filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+            );
+        }
+        
+        if (currentSort === 'popular') {
+            filtered.sort((a, b) => b.downloads - a.downloads);
+        } else {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        if (currentFilter !== 'all' && currentFilter !== 'sounds') {
+            filtered = [];
+        }
+        
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'sounds') {
+            container.innerHTML = '';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(item => `
+            <li class="glass-item" id="mod-${item.id}">
+                <div class="item-main-row">
+                    <div class="item-buttons">
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-date">📅 ${item.date}</div>
+                    </div>
+                </div>
+                <div class="item-expand">
+                    <div class="expand-content">
+                        <div class="expand-desc">${item.desc}</div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+        
+        attachEvents();
+    }
+
+    function renderGunpac() {
+        const container = document.getElementById('gunpacList');
+        let filtered = [...gunpacData];
+        
+        if (globalSearchQuery) {
+            filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+            );
+        }
+        
+        if (currentSort === 'popular') {
+            filtered.sort((a, b) => b.downloads - a.downloads);
+        } else {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        if (currentFilter !== 'all' && currentFilter !== 'gunpac') {
+            filtered = [];
+        }
+        
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'gunpac') {
+            container.innerHTML = '';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(item => `
+            <li class="glass-item" id="mod-${item.id}">
+                <div class="item-main-row">
+                    <div class="item-buttons">
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-date">📅 ${item.date}</div>
+                    </div>
+                </div>
+                <div class="item-expand">
+                    <div class="expand-content">
+                        <div class="expand-desc">${item.desc}</div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+        
+        attachEvents();
+    }
+
+    function renderTimemap() {
+        const container = document.getElementById('timemapList');
+        let filtered = [...timemapData];
+        
+        if (globalSearchQuery) {
+            filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+            );
+        }
+        
+        if (currentSort === 'popular') {
+            filtered.sort((a, b) => b.downloads - a.downloads);
+        } else {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        if (currentFilter !== 'all' && currentFilter !== 'timemap') {
+            filtered = [];
+        }
+        
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'timemap') {
+            container.innerHTML = '';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(item => `
+            <li class="glass-item" id="mod-${item.id}">
+                <div class="item-main-row">
+                    <div class="item-buttons">
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-date">📅 ${item.date}</div>
+                    </div>
+                </div>
+                <div class="item-expand">
+                    <div class="expand-content">
+                        <div class="expand-desc">${item.desc}</div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+        
+        attachEvents();
+    }
+
+    function renderTop() {
+        const allRedux = [];
+        familyBrands.forEach(brand => {
+            allRedux.push(brand.current);
+            brand.versions.forEach(v => allRedux.push(v));
+        });
+        const top3 = [...allRedux].sort((a, b) => b.downloads - a.downloads).slice(0, 3);
+        
+        const container = document.getElementById('topReduxList');
+        container.innerHTML = top3.map((item, idx) => {
+            const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉';
+            return `
+                <div class="top-item">
+                    <div class="top-buttons">
+                        <button class="top-review-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="top-download-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
+                        <button class="top-copy-btn" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="top-rank">${medal}</div>
+                    <div class="top-info">
+                        <div class="top-name">${item.name}</div>
+                        <div class="top-date">📅 ${item.date}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        document.querySelectorAll('.top-review-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.top-download-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.top-copy-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+    }
+
+    function renderBrands() {
+        const container = document.getElementById('brandsList');
+        let filtered = [...familyBrands];
+        
+        if (familySearchQuery) {
+            filtered = filtered.filter(brand => 
+                brand.name.toLowerCase().includes(familySearchQuery.toLowerCase()) ||
+                brand.current.name.toLowerCase().includes(familySearchQuery.toLowerCase()) ||
+                brand.versions.some(v => v.name.toLowerCase().includes(familySearchQuery.toLowerCase()))
+            );
+        }
+        
+        if (currentFilter !== 'all' && currentFilter !== 'family') {
+            filtered = [];
+        }
+        
+        const statsSpan = document.getElementById('searchStats');
+        if (statsSpan) {
+            statsSpan.textContent = familySearchQuery ? `🔍 найдено: ${filtered.length} из ${familyBrands.length}` : '';
+        }
+        
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'family') {
+            container.innerHTML = '';
+            return;
+        }
+        
+        if (filtered.length === 0) {
+            container.innerHTML = '<div class="no-results">🔍 Ничего не найдено</div>';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(brand => `
+            <div class="family-brand-item" id="mod-${brand.current.id}">
+                <div class="brand-main-row">
+                    <div class="brand-buttons">
+                        <button class="btn-review ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.reviewUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
+                        <button class="btn-download ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.downloadUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-copy" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-id="${brand.current.id}">🔗</button>
+                    </div>
+                    <div class="brand-info">
+                        <div class="brand-name">${brand.current.name}</div>
+                        <div class="brand-date">📅 ${brand.current.date}</div>
+                    </div>
+                </div>
+                ${brand.versions.length > 0 ? `
+                <div class="versions-container">
+                    <div>
+                        <div class="versions-inner">
+                            <div class="versions-label">📜 Старые версии (${brand.name})</div>
+                            ${brand.versions.map(v => `
+                                <div class="version-item" id="mod-${v.id}">
+                                    <div class="version-buttons">
+                                        <button class="version-review-btn ${getButtonClass(v.hasLinks)}" data-name="${v.name.replace(/'/g, "\\'")}" data-url="${v.reviewUrl}" ${!v.hasLinks ? 'disabled' : ''}>🔍</button>
+                                        <button class="version-download-btn ${getButtonClass(v.hasLinks)}" data-name="${v.name.replace(/'/g, "\\'")}" data-url="${v.downloadUrl}" ${!v.hasLinks ? 'disabled' : ''}>⬇️</button>
+                                        <button class="version-copy-btn" data-name="${v.name.replace(/'/g, "\\'")}" data-id="${v.id}">🔗</button>
+                                    </div>
+                                    <div class="version-info">
+                                        <div class="version-name">${v.name}</div>
+                                        <div class="version-date">📅 ${v.date}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+        `).join('');
+        
+        attachFamilyEvents();
+    }
+
+    function applyFilters() {
+        renderSounds();
+        renderGunpac();
+        renderTimemap();
+        renderBrands();
+        renderTop();
+    }
+
+    let globalDebounce, familyDebounce;
+    const globalSearch = document.getElementById('globalSearch');
+    if (globalSearch) {
+        globalSearch.addEventListener('input', (e) => {
+            clearTimeout(globalDebounce);
+            globalDebounce = setTimeout(() => {
+                globalSearchQuery = e.target.value;
+                applyFilters();
+            }, 300);
+        });
+    }
+    
+    const familySearch = document.getElementById('brandSearch');
+    if (familySearch) {
+        familySearch.addEventListener('input', (e) => {
+            clearTimeout(familyDebounce);
+            familyDebounce = setTimeout(() => {
+                familySearchQuery = e.target.value;
+                renderBrands();
+                renderTop();
+            }, 300);
+        });
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.getAttribute('data-filter');
+            applyFilters();
+        });
+    });
+
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentSort = btn.getAttribute('data-sort');
+            applyFilters();
+        });
+    });
+
+    const familyHeader = document.getElementById('familyHeader');
+    const familyContent = document.getElementById('familyContent');
+    if (familyHeader && familyContent) {
+        familyHeader.addEventListener('click', () => {
+            familyHeader.classList.toggle('open');
+            familyContent.classList.toggle('open');
+        });
+    }
+
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') body.setAttribute('data-theme', 'light');
+    else body.setAttribute('data-theme', 'dark');
+    
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const current = body.getAttribute('data-theme');
+            if (current === 'light') body.setAttribute('data-theme', 'dark');
+            else body.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', body.getAttribute('data-theme'));
+            showToast(`🌓 ${body.getAttribute('data-theme') === 'light' ? 'Светлая' : 'Тёмная'} тема`, 800);
+        });
+    }
+
+    showSkeleton();
+    setTimeout(() => {
+        renderSounds();
+        renderGunpac();
+        renderTimemap();
+        renderBrands();
+        renderTop();
+        updateTotalModsCount();
+    }, 300);
+
+    document.addEventListener('click', (e) => {
+        const toast = document.querySelector('.toast');
+        if (toast && !e.target.closest('.toast')) {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }
+    });
+</script>
+</body>
+</html>
