@@ -37,6 +37,8 @@
             --btn-inactive-color: #8888aa;
             --btn-copy: rgba(168, 85, 247, 0.2);
             --btn-copy-hover: rgba(168, 85, 247, 0.4);
+            --btn-lang: rgba(255, 255, 255, 0.08);
+            --btn-lang-hover: rgba(255, 255, 255, 0.15);
         }
 
         [data-theme="light"] {
@@ -61,6 +63,8 @@
             --btn-inactive-hover: rgba(100, 100, 120, 0.2);
             --btn-copy: rgba(168, 85, 247, 0.1);
             --btn-copy-hover: rgba(168, 85, 247, 0.25);
+            --btn-lang: rgba(0, 0, 0, 0.05);
+            --btn-lang-hover: rgba(0, 0, 0, 0.1);
         }
 
         body {
@@ -156,6 +160,8 @@
             width: 95%;
             margin: 0 auto;
             padding: 1rem 1rem 1.5rem;
+            position: relative;
+            min-height: 100vh;
         }
 
         .header {
@@ -195,12 +201,37 @@
             border: 1px solid var(--glass-border);
         }
 
+        .header-right {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-toggle {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--neon-hover);
+            transform: scale(1.02);
+        }
+
         .theme-toggle {
             background: var(--glass-bg);
             backdrop-filter: var(--backdrop-blur);
             border: 1px solid var(--glass-border);
-            width: 40px;
-            height: 40px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -217,8 +248,8 @@
         }
 
         .theme-toggle svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             stroke: currentColor;
             fill: none;
             stroke-width: 1.6;
@@ -423,14 +454,14 @@
             flex-direction: column;
             gap: 0.25rem;
             flex-shrink: 0;
-            min-width: 52px;
+            min-width: 34px;
         }
 
         .btn-review, .btn-download, .btn-copy {
             border: none;
             border-radius: 16px;
-            padding: 0.1rem 0.35rem;
-            font-size: 0.55rem;
+            padding: 0.2rem 0.35rem;
+            font-size: 0.75rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -471,6 +502,8 @@
             border: 1px solid rgba(168, 85, 247, 0.3);
             color: #a855f7;
             cursor: pointer;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.3rem;
         }
         .btn-copy:hover {
             background: var(--btn-copy-hover);
@@ -550,7 +583,7 @@
             flex-direction: column;
             gap: 0.25rem;
             flex-shrink: 0;
-            min-width: 52px;
+            min-width: 34px;
         }
 
         .brand-info {
@@ -601,13 +634,13 @@
             flex-direction: column;
             gap: 0.2rem;
             flex-shrink: 0;
-            min-width: 40px;
+            min-width: 32px;
         }
         .version-review-btn, .version-download-btn, .version-copy-btn {
             border: none;
             border-radius: 14px;
-            padding: 0.08rem 0.3rem;
-            font-size: 0.5rem;
+            padding: 0.1rem 0.3rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -635,6 +668,7 @@
             border: 1px solid rgba(168, 85, 247, 0.3);
             color: #a855f7;
             cursor: pointer;
+            font-size: 0.6rem;
         }
         .version-info {
             flex: 1;
@@ -781,13 +815,13 @@
             flex-direction: column;
             gap: 0.2rem;
             flex-shrink: 0;
-            min-width: 38px;
+            min-width: 32px;
         }
         .top-review-btn, .top-download-btn, .top-copy-btn {
             border: none;
             border-radius: 14px;
-            padding: 0.08rem 0.25rem;
-            font-size: 0.5rem;
+            padding: 0.1rem 0.25rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -874,13 +908,31 @@
             line-height: 1.4;
         }
 
+        /* Сборка сайта */
+        .build-version {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 0.8rem; }
             .brand-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
             .item-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
-            .brand-buttons, .item-buttons { min-width: 48px; }
-            .btn-review, .btn-download, .btn-copy { font-size: 0.45rem; padding: 0.05rem 0.2rem; }
+            .brand-buttons, .item-buttons { min-width: 32px; }
+            .btn-review, .btn-download, .btn-copy { font-size: 0.65rem; padding: 0.1rem 0.25rem; }
             .brand-name, .item-name { font-size: 0.7rem; }
+            .build-version { font-size: 0.5rem; bottom: 10px; right: 10px; }
             .toast { font-size: 0.75rem; white-space: nowrap; padding: 8px 18px; }
         }
 
@@ -896,10 +948,13 @@
             <h1>ilumn</h1>
         </div>
         <div class="header-stats" id="totalModsCount">📦 всего модов: 0</div>
-        <button class="theme-toggle" id="themeToggle">
-            <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor"/></svg>
-            <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor"/></svg>
-        </button>
+        <div class="header-right">
+            <button class="lang-toggle" id="langToggle">🌐 EN</button>
+            <button class="theme-toggle" id="themeToggle">
+                <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor"/></svg>
+                <svg class="moon-icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor"/></svg>
+            </button>
+        </div>
     </div>
 
     <div class="search-section">
@@ -986,45 +1041,195 @@
     </div>
 </div>
 
+<!-- Сборка сайта -->
+<div class="build-version">0.03 upd 16.06.2026</div>
+
 <script>
     // === ДАННЫЕ ===
     const DEFAULT_DATE = "15.06.2026";
 
+    // === ЛОКАЛИЗАЦИЯ ===
+    let currentLang = 'ru'; // 'ru' или 'en'
+
+    const translations = {
+        ru: {
+            totalMods: "📦 всего модов:",
+            searchPlaceholder: "🔍 Поиск модов по всем категориям...",
+            sortPopular: "📊 по популярности",
+            sortName: "🔤 по названию",
+            filterAll: "Все",
+            filterSounds: "🎧 Звуки",
+            filterGunpac: "🔫 Оружие",
+            filterTimemap: "⏰ TIME/MAP",
+            filterFamily: "👨‍👩‍👧‍👦 Семьи",
+            soundsTitle: "ЗВУКИ / СПЕШ / ТЯЖК / САЙГ",
+            soundsSub: "sound packs · voice · heavy · sige",
+            gunpacTitle: "GUNPAC",
+            gunpacSub: "оружие · анимации · звуки выстрелов",
+            timemapTitle: "TIME / MAP",
+            timemapSub: "таймциклы · уникальные карты",
+            familyHeaderTitle: "👨‍👩‍👧‍👦 Семейные редуксы",
+            familyHeaderSub: "редуксы от топовых семей · с версиями",
+            topLabel: "⭐ ПОПУЛЯРНЫЕ ПО СКАЧИВАНИЯМ",
+            brandsLabel: "🏷️ РЕДУКСЫ ПО СЕМЬЯМ",
+            oldVersions: "📜 Старые версии",
+            discordText: "Discord:",
+            infoText: "По предложениям добавления модификаций на сайт (публичные/личные)\nпрошу написать мне в личные сообщения Discord",
+            noResults: "🔍 Ничего не найдено",
+            reviewNotAdded: "⚠️ Обзор для \"{{name}}\" пока не добавлен!",
+            downloadNotAdded: "⚠️ Ссылка на скачивание \"{{name}}\" пока не добавлена!",
+            openingReview: "🔍 Открываем обзор \"{{name}}\"...",
+            startingDownload: "📦 Начинаем скачивание \"{{name}}\"...",
+            downloadStarted: "✅ \"{{name}}\" начал скачивание!",
+            copySuccess: "🔗 Ссылка на \"{{name}}\" скопирована!",
+            copyError: "❌ Не удалось скопировать ссылку",
+            themeChanged: "🌓 {{theme}} тема",
+            themeDark: "Тёмная",
+            themeLight: "Светлая"
+        },
+        en: {
+            totalMods: "📦 total mods:",
+            searchPlaceholder: "🔍 Search mods in all categories...",
+            sortPopular: "📊 by popularity",
+            sortName: "🔤 by name",
+            filterAll: "All",
+            filterSounds: "🎧 Sounds",
+            filterGunpac: "🔫 Gunpac",
+            filterTimemap: "⏰ TIME/MAP",
+            filterFamily: "👨‍👩‍👧‍👦 Families",
+            soundsTitle: "SOUNDS / SPEC / HEAVY / SIGE",
+            soundsSub: "sound packs · voice · heavy · sige",
+            gunpacTitle: "GUNPAC",
+            gunpacSub: "weapons · animations · sounds",
+            timemapTitle: "TIME / MAP",
+            timemapSub: "timecycles · unique maps",
+            familyHeaderTitle: "👨‍👩‍👧‍👦 Family Redux",
+            familyHeaderSub: "top family redux · with versions",
+            topLabel: "⭐ TOP BY DOWNLOADS",
+            brandsLabel: "🏷️ REDUX BY FAMILY",
+            oldVersions: "📜 Old versions",
+            discordText: "Discord:",
+            infoText: "For suggestions on adding mods to the site (public/private)\nplease write to me in Discord private messages",
+            noResults: "🔍 Nothing found",
+            reviewNotAdded: "⚠️ Review for \"{{name}}\" not added yet!",
+            downloadNotAdded: "⚠️ Download link for \"{{name}}\" not added yet!",
+            openingReview: "🔍 Opening review for \"{{name}}\"...",
+            startingDownload: "📦 Starting download of \"{{name}}\"...",
+            downloadStarted: "✅ \"{{name}}\" started downloading!",
+            copySuccess: "🔗 Link to \"{{name}}\" copied!",
+            copyError: "❌ Failed to copy link",
+            themeChanged: "🌓 {{theme}} theme",
+            themeDark: "Dark",
+            themeLight: "Light"
+        }
+    };
+
+    function t(key, params = {}) {
+        let text = translations[currentLang][key] || key;
+        Object.keys(params).forEach(k => {
+            text = text.replace(`{{${k}}}`, params[k]);
+        });
+        return text;
+    }
+
+    function updateAllTexts() {
+        // Обновляем глобальный поиск
+        const globalSearch = document.getElementById('globalSearch');
+        if (globalSearch) globalSearch.placeholder = t('searchPlaceholder');
+        
+        // Кнопки сортировки
+        const sortBtns = document.querySelectorAll('.sort-btn');
+        if (sortBtns[0]) sortBtns[0].innerHTML = t('sortPopular');
+        if (sortBtns[1]) sortBtns[1].innerHTML = t('sortName');
+        
+        // Кнопки фильтров
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        if (filterBtns[0]) filterBtns[0].innerHTML = t('filterAll');
+        if (filterBtns[1]) filterBtns[1].innerHTML = t('filterSounds');
+        if (filterBtns[2]) filterBtns[2].innerHTML = t('filterGunpac');
+        if (filterBtns[3]) filterBtns[3].innerHTML = t('filterTimemap');
+        if (filterBtns[4]) filterBtns[4].innerHTML = t('filterFamily');
+        
+        // Категории
+        const soundsCategory = document.querySelector('.category[data-category="sounds"] .category-title');
+        const soundsCategorySub = document.querySelector('.category[data-category="sounds"] .category-sub');
+        const gunpacCategory = document.querySelector('.category[data-category="gunpac"] .category-title');
+        const gunpacCategorySub = document.querySelector('.category[data-category="gunpac"] .category-sub');
+        const timemapCategory = document.querySelector('.category[data-category="timemap"] .category-title');
+        const timemapCategorySub = document.querySelector('.category[data-category="timemap"] .category-sub');
+        
+        if (soundsCategory) soundsCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4a2 2 0 0 0 2 2h2l4 4V4L7 8H5a2 2 0 0 0-2 2z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg> ${t('soundsTitle')}`;
+        if (soundsCategorySub) soundsCategorySub.innerHTML = t('soundsSub');
+        if (gunpacCategory) gunpacCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 12h4l2 2-2 2h-4"/><path d="M18 8h-4v8h4"/><path d="M10 12H6l-2-2 2-2h4"/><path d="M6 8h4v8H6"/><circle cx="12" cy="12" r="2"/></svg> ${t('gunpacTitle')}`;
+        if (gunpacCategorySub) gunpacCategorySub.innerHTML = t('gunpacSub');
+        if (timemapCategory) timemapCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4 4 L8 8"/><path d="M20 4 L16 8"/></svg> ${t('timemapTitle')}`;
+        if (timemapCategorySub) timemapCategorySub.innerHTML = t('timemapSub');
+        
+        // Семейный блок
+        const familyHeaderTitle = document.querySelector('.family-header h3');
+        const familyHeaderSpan = document.querySelector('.family-header span');
+        if (familyHeaderTitle) familyHeaderTitle.innerHTML = t('familyHeaderTitle');
+        if (familyHeaderSpan) familyHeaderSpan.innerHTML = t('familyHeaderSub');
+        
+        // Лейблы
+        const topLabel = document.querySelector('.top-section .section-label');
+        const brandsLabel = document.querySelector('.family-inner .section-label:last-of-type');
+        if (topLabel) topLabel.innerHTML = t('topLabel');
+        if (brandsLabel) brandsLabel.innerHTML = t('brandsLabel');
+        
+        // Поиск в семьях
+        const brandSearch = document.getElementById('brandSearch');
+        if (brandSearch) brandSearch.placeholder = currentLang === 'ru' ? "🔍 Поиск семей и редуксов..." : "🔍 Search families and redux...";
+        
+        // Футер
+        const discordText = document.querySelector('.discord-text');
+        const infoText = document.querySelector('.info-text');
+        if (discordText) discordText.innerHTML = t('discordText');
+        if (infoText) infoText.innerHTML = t('infoText').replace(/\n/g, '<br>');
+        
+        // Перерисовываем контент
+        applyFilters();
+        
+        // Обновляем счётчик модов
+        updateTotalModsCount();
+    }
+
+    // === ДАННЫЕ ===
     const soundsData = [
-        { id: "spec", name: "spec", downloads: 0, desc: "звуки на спешик", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: DEFAULT_DATE },
-        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, desc: "звуки на сайгу", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "revolver", name: "revolver", downloads: 0, desc: "ревик", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, desc: "хевик1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "spec", name: "spec", downloads: 0, descRu: "звуки на спешик", descEn: "spec sounds", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: DEFAULT_DATE },
+        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, descRu: "звуки на сайгу", descEn: "shotgun sounds", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "revolver", name: "revolver", downloads: 0, descRu: "ревик", descEn: "revolver", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, descRu: "хевик1/2", descEn: "heavy 1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
     ];
 
     const gunpacData = [
-        { id: "gun-black", name: "gun/black", downloads: 0, desc: "ганы в темном стиле", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-white", name: "gun/white", downloads: 0, desc: "ганы в белом стиле", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, desc: "различные цвета", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, desc: "смешанные цвета", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "gun-black", name: "gun/black", downloads: 0, descRu: "ганы в темном стиле", descEn: "dark style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-white", name: "gun/white", downloads: 0, descRu: "ганы в белом стиле", descEn: "white style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, descRu: "различные цвета", descEn: "various colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, descRu: "смешанные цвета", descEn: "mixed colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
     ];
 
     const timemapData = [
-        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, desc: "таймы (небо/облака/день/ночь)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "farm-map", name: "farm map", downloads: 0, desc: "мапа для фарма", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "mcl-map", name: "Mcl map", downloads: 0, desc: "Mcl зоны", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "mini-map", name: "Mini map", downloads: 0, desc: "мини мапа в углу/по центру", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, descRu: "таймы (небо/облака/день/ночь)", descEn: "timecycles (sky/clouds/day/night)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "farm-map", name: "farm map", downloads: 0, descRu: "мапа для фарма", descEn: "farm map", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "mcl-map", name: "Mcl map", downloads: 0, descRu: "Mcl зоны", descEn: "Mcl zones", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
+        { id: "mini-map", name: "Mini map", downloads: 0, descRu: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
     ];
 
     const familyBrands = [
         { 
             name: "Gucci", 
-            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, desc: "редукс от Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
-            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, desc: "редукс от Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
+            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, descRu: "редукс от Gucci V3", descEn: "Redux from Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, descRu: "редукс от Gucci V2", descEn: "Redux from Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
         },
         { 
             name: "Glow", 
-            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, desc: "редукс от Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, descRu: "редукс от Glow", descEn: "Redux from Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Skye", 
-            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, desc: "редукс от Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, descRu: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         }
     ];
@@ -1034,6 +1239,10 @@
     let currentSort = "popular";
     let globalSearchQuery = "";
     let familySearchQuery = "";
+
+    function getDesc(item) {
+        return currentLang === 'ru' ? (item.descRu || item.desc || '') : (item.descEn || item.desc || '');
+    }
 
     function showToast(message, duration = 2000) {
         let toast = document.querySelector('.toast');
@@ -1052,21 +1261,21 @@
     function updateTotalModsCount() {
         const total = soundsData.length + gunpacData.length + timemapData.length + 
             familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
-        document.getElementById('totalModsCount').innerText = `📦 всего модов: ${total}`;
+        document.getElementById('totalModsCount').innerText = `${t('totalMods')} ${total}`;
     }
 
     function copyModLink(modId, modName) {
         const url = `${window.location.origin}${window.location.pathname}#mod-${modId}`;
         navigator.clipboard.writeText(url).then(() => {
-            showToast(`🔗 Ссылка на "${modName}" скопирована!`, 1200);
+            showToast(t('copySuccess', { name: modName }), 1200);
         }).catch(() => {
-            showToast(`❌ Не удалось скопировать ссылку`, 1000);
+            showToast(t('copyError'), 1000);
         });
     }
 
     function openReview(url, name, event) {
         if (!url) {
-            showToast(`⚠️ Обзор для "${name}" пока не добавлен!`, 1500);
+            showToast(t('reviewNotAdded', { name: name }), 1500);
             return;
         }
         if (event && event.target) {
@@ -1075,12 +1284,12 @@
             setTimeout(() => { btn.style.transform = ''; }, 150);
         }
         window.open(url, '_blank');
-        showToast(`🔍 Открываем обзор "${name}"...`, 1000);
+        showToast(t('openingReview', { name: name }), 1000);
     }
 
     function handleDownload(url, name, event) {
         if (!url) {
-            showToast(`⚠️ Ссылка на скачивание "${name}" пока не добавлена!`, 1500);
+            showToast(t('downloadNotAdded', { name: name }), 1500);
             return;
         }
         if (event && event.target) {
@@ -1088,10 +1297,10 @@
             btn.style.transform = 'scale(0.92)';
             setTimeout(() => { btn.style.transform = ''; }, 150);
         }
-        showToast(`📦 Начинаем скачивание "${name}"...`, 800);
+        showToast(t('startingDownload', { name: name }), 800);
         setTimeout(() => {
             window.open(url, '_blank');
-            showToast(`✅ "${name}" начал скачивание!`, 1500);
+            showToast(t('downloadStarted', { name: name }), 1500);
             clickCount++;
         }, 300);
     }
@@ -1198,7 +1407,7 @@
         if (globalSearchQuery) {
             filtered = filtered.filter(item => 
                 item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
             );
         }
         
@@ -1221,8 +1430,8 @@
             <li class="glass-item" id="mod-${item.id}">
                 <div class="item-main-row">
                     <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
                         <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
                     </div>
                     <div class="item-info">
@@ -1232,7 +1441,7 @@
                 </div>
                 <div class="item-expand">
                     <div class="expand-content">
-                        <div class="expand-desc">${item.desc}</div>
+                        <div class="expand-desc">${getDesc(item)}</div>
                     </div>
                 </div>
             </li>
@@ -1248,7 +1457,7 @@
         if (globalSearchQuery) {
             filtered = filtered.filter(item => 
                 item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
             );
         }
         
@@ -1271,8 +1480,8 @@
             <li class="glass-item" id="mod-${item.id}">
                 <div class="item-main-row">
                     <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
                         <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
                     </div>
                     <div class="item-info">
@@ -1282,7 +1491,7 @@
                 </div>
                 <div class="item-expand">
                     <div class="expand-content">
-                        <div class="expand-desc">${item.desc}</div>
+                        <div class="expand-desc">${getDesc(item)}</div>
                     </div>
                 </div>
             </li>
@@ -1298,7 +1507,7 @@
         if (globalSearchQuery) {
             filtered = filtered.filter(item => 
                 item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                item.desc.toLowerCase().includes(globalSearchQuery.toLowerCase())
+                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
             );
         }
         
@@ -1321,8 +1530,8 @@
             <li class="glass-item" id="mod-${item.id}">
                 <div class="item-main-row">
                     <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
                         <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
                     </div>
                     <div class="item-info">
@@ -1332,7 +1541,7 @@
                 </div>
                 <div class="item-expand">
                     <div class="expand-content">
-                        <div class="expand-desc">${item.desc}</div>
+                        <div class="expand-desc">${getDesc(item)}</div>
                     </div>
                 </div>
             </li>
@@ -1415,7 +1624,7 @@
         }
         
         if (filtered.length === 0) {
-            container.innerHTML = '<div class="no-results">🔍 Ничего не найдено</div>';
+            container.innerHTML = `<div class="no-results">${t('noResults')}</div>`;
             return;
         }
         
@@ -1423,8 +1632,8 @@
             <div class="family-brand-item" id="mod-${brand.current.id}">
                 <div class="brand-main-row">
                     <div class="brand-buttons">
-                        <button class="btn-review ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.reviewUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>🔍 Обзор</button>
-                        <button class="btn-download ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.downloadUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>⬇️ Скачать</button>
+                        <button class="btn-review ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.reviewUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(brand.current.hasLinks)}" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-url="${brand.current.downloadUrl}" ${!brand.current.hasLinks ? 'disabled' : ''}>⬇️</button>
                         <button class="btn-copy" data-name="${brand.current.name.replace(/'/g, "\\'")}" data-id="${brand.current.id}">🔗</button>
                     </div>
                     <div class="brand-info">
@@ -1436,7 +1645,7 @@
                 <div class="versions-container">
                     <div>
                         <div class="versions-inner">
-                            <div class="versions-label">📜 Старые версии (${brand.name})</div>
+                            <div class="versions-label">${t('oldVersions')} (${brand.name})</div>
                             ${brand.versions.map(v => `
                                 <div class="version-item" id="mod-${v.id}">
                                     <div class="version-buttons">
@@ -1519,6 +1728,17 @@
         });
     }
 
+    // Языковая кнопка
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            langToggle.innerHTML = currentLang === 'ru' ? '🌐 EN' : '🌐 RU';
+            updateAllTexts();
+            showToast(currentLang === 'ru' ? '🌐 Русский язык' : '🌐 English language', 800);
+        });
+    }
+
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
     const savedTheme = localStorage.getItem('theme');
@@ -1531,7 +1751,8 @@
             if (current === 'light') body.setAttribute('data-theme', 'dark');
             else body.setAttribute('data-theme', 'light');
             localStorage.setItem('theme', body.getAttribute('data-theme'));
-            showToast(`🌓 ${body.getAttribute('data-theme') === 'light' ? 'Светлая' : 'Тёмная'} тема`, 800);
+            const themeName = body.getAttribute('data-theme') === 'light' ? t('themeLight') : t('themeDark');
+            showToast(t('themeChanged', { theme: themeName }), 800);
         });
     }
 
@@ -1543,6 +1764,7 @@
         renderBrands();
         renderTop();
         updateTotalModsCount();
+        updateAllTexts();
     }, 300);
 
     document.addEventListener('click', (e) => {
