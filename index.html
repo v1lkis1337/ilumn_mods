@@ -2014,33 +2014,6 @@
         });
     }
 
-    showSkeleton();
-    setTimeout(() => {
-        renderSounds();
-        renderGunpac();
-        renderTimemap();
-        renderIndividual();
-        renderBrands();
-        renderTop();
-        updateTotalModsCount();
-        updateAllTexts();
-    }, 300);
-
-    document.addEventListener('click', (e) => {
-        const toast = document.querySelector('.toast');
-        if (toast && !e.target.closest('.toast')) {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }
-    });
-    document.addEventListener('click', (e) => {
-        const toast = document.querySelector('.toast');
-        if (toast && !e.target.closest('.toast')) {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }
-    });
-
     // === ПРИЯТНЫЙ ЗВУК ТАПИНГА ===
     (function() {
         let audioCtx = null;
@@ -2069,7 +2042,25 @@
         }, { passive: true });
     })();
 
+    showSkeleton();
+    setTimeout(() => {
+        renderSounds();
+        renderGunpac();
+        renderTimemap();
+        renderIndividual();
+        renderBrands();
+        renderTop();
+        updateTotalModsCount();
+        updateAllTexts();
+    }, 300);
+
+    document.addEventListener('click', (e) => {
+        const toast = document.querySelector('.toast');
+        if (toast && !e.target.closest('.toast')) {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }
+    });
 </script>
 </body>
 </html>
-
