@@ -943,11 +943,12 @@
 </head>
 <body data-theme="dark">
 <div class="container">
-   <div class="header-stats" id="totalModsCount">📦 всего модов: 0</div>
-    <div class="header-stats" id="viewsCount">👁️ просмотров: --</div>
+    <div class="header">
+        <div class="logo">
             <h1>ilumn</h1>
         </div>
         <div class="header-stats" id="totalModsCount">📦 всего модов: 0</div>
+        <div class="header-stats" id="viewsCount">👁️ просмотров: --</div>
         <div class="header-right">
             <button class="lang-toggle" id="langToggle">🌐 EN</button>
             <button class="theme-toggle" id="themeToggle">
@@ -1179,6 +1180,13 @@
         if (discordText) discordText.innerHTML = t('discordText');
         if (infoText) infoText.innerHTML = t('infoText').replace(/\n/g, '<br>');
         
+        // Обновляем текст счётчика просмотров при смене языка
+        const viewsEl = document.getElementById('viewsCount');
+        if (viewsEl) {
+            const viewsVal = localStorage.getItem('pageViews') || 0;
+            viewsEl.innerText = currentLang === 'ru' ? `👁️ просмотров: ${viewsVal}` : `👁️ views: ${viewsVal}`;
+        }
+        
         applyFilters();
         updateTotalModsCount();
     }
@@ -1243,6 +1251,15 @@
     let currentSort = "popular";
     let globalSearchQuery = "";
     let familySearchQuery = "";
+    
+    // Счётчик просмотров
+    let viewsCount = localStorage.getItem('pageViews') ? parseInt(localStorage.getItem('pageViews')) : 0;
+    viewsCount++;
+    localStorage.setItem('pageViews', viewsCount);
+    const viewsElement = document.getElementById('viewsCount');
+    if (viewsElement) {
+        viewsElement.innerText = `👁️ просмотров: ${viewsCount}`;
+    }
 
     function getDesc(item) {
         return currentLang === 'ru' ? (item.descRu || item.desc || '') : (item.descEn || item.desc || '');
