@@ -39,6 +39,9 @@
             --btn-copy-hover: rgba(168, 85, 247, 0.4);
             --btn-lang: rgba(255, 255, 255, 0.08);
             --btn-lang-hover: rgba(255, 255, 255, 0.15);
+            --btn-sound: rgba(255, 255, 255, 0.08);
+            --btn-sound-hover: rgba(255, 255, 255, 0.15);
+            --btn-sound-off: rgba(239, 68, 68, 0.2);
         }
 
         [data-theme="light"] {
@@ -65,6 +68,9 @@
             --btn-copy-hover: rgba(168, 85, 247, 0.25);
             --btn-lang: rgba(0, 0, 0, 0.05);
             --btn-lang-hover: rgba(0, 0, 0, 0.1);
+            --btn-sound: rgba(0, 0, 0, 0.05);
+            --btn-sound-hover: rgba(0, 0, 0, 0.1);
+            --btn-sound-off: rgba(239, 68, 68, 0.1);
         }
 
         body {
@@ -75,7 +81,7 @@
             min-height: 100vh;
             overflow-y: auto;
             overflow-x: hidden;
-            transition: background 0.3s ease, background-image 0.3s ease;
+            transition: background 0.6s ease, background-image 0.6s ease;
         }
 
         @keyframes fadeInUp {
@@ -103,9 +109,9 @@
 
         .skeleton {
             background: var(--glass-bg);
-            border-radius: 14px;
-            padding: 0.7rem 1rem;
-            margin-bottom: 0.8rem;
+            border-radius: 12px;
+            padding: 0.5rem 0.8rem;
+            margin-bottom: 0.6rem;
             position: relative;
             overflow: hidden;
         }
@@ -126,19 +132,19 @@
         .skeleton-row {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
         .skeleton-btn {
-            width: 52px;
-            height: 36px;
+            width: 40px;
+            height: 30px;
             background: rgba(255,255,255,0.05);
-            border-radius: 16px;
+            border-radius: 12px;
         }
         .skeleton-text {
             flex: 1;
-            height: 20px;
+            height: 16px;
             background: rgba(255,255,255,0.05);
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         ::-webkit-scrollbar {
@@ -205,6 +211,27 @@
             display: flex;
             gap: 0.5rem;
             align-items: center;
+        }
+
+        .sound-toggle {
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            padding: 0.3rem 0.6rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+        .sound-toggle:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--neon-hover);
+            transform: scale(1.02);
+        }
+        .sound-toggle.off {
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #ef4444;
         }
 
         .lang-toggle {
@@ -331,8 +358,8 @@
         .update-item {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
-            padding: 0.3rem 0.8rem;
-            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.65rem;
             border: 1px solid var(--glass-border);
             transition: all 0.2s;
             cursor: pointer;
@@ -347,7 +374,7 @@
 
         .update-item .upd-date {
             color: var(--text-muted);
-            font-size: 0.6rem;
+            font-size: 0.5rem;
         }
 
         .search-section {
@@ -401,29 +428,6 @@
             border-color: var(--glass-border-hover);
             transform: scale(0.98);
         }
-        .sort-buttons {
-            display: flex;
-            gap: 0.5rem;
-            margin-left: auto;
-        }
-        .sort-btn {
-            background: var(--glass-bg);
-            backdrop-filter: var(--backdrop-blur);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: 0.4rem 0.8rem;
-            font-size: 0.65rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text-muted);
-        }
-        .sort-btn.active {
-            background: rgba(255, 255, 255, 0.15);
-            color: var(--text-primary);
-        }
-        .sort-btn:hover {
-            border-color: var(--glass-border-hover);
-        }
 
         .toast {
             position: fixed;
@@ -457,12 +461,12 @@
 
         .category {
             flex: 1;
-            min-width: 280px;
-            max-width: 340px;
+            min-width: 250px;
+            max-width: 320px;
         }
 
         .category-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             margin-bottom: 0.2rem;
             display: flex;
@@ -477,25 +481,25 @@
         }
 
         .category-sub {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 1.5px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .item-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
             margin-bottom: 0.5rem;
         }
 
         .glass-item {
             background: var(--glass-bg);
             backdrop-filter: var(--backdrop-blur);
-            border-radius: 14px;
+            border-radius: 12px;
             transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
@@ -520,7 +524,7 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.7rem 1rem;
+            padding: 0.5rem 0.8rem;
             position: relative;
             z-index: 1;
             cursor: pointer;
@@ -528,7 +532,7 @@
 
         .item-main-row::after {
             content: '▼';
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: var(--text-muted);
             transition: transform 0.3s ease;
             margin-left: auto;
@@ -540,16 +544,16 @@
         .item-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.2rem;
             flex-shrink: 0;
-            min-width: 34px;
+            min-width: 30px;
         }
 
         .btn-review, .btn-download, .btn-copy {
             border: none;
-            border-radius: 16px;
-            padding: 0.2rem 0.35rem;
-            font-size: 0.75rem;
+            border-radius: 14px;
+            padding: 0.15rem 0.3rem;
+            font-size: 0.65rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -590,8 +594,8 @@
             border: 1px solid rgba(168, 85, 247, 0.3);
             color: #a855f7;
             cursor: pointer;
-            font-size: 0.7rem;
-            padding: 0.15rem 0.3rem;
+            font-size: 0.6rem;
+            padding: 0.12rem 0.25rem;
         }
         .btn-copy:hover {
             background: var(--btn-copy-hover);
@@ -603,14 +607,14 @@
             text-align: center;
         }
         .item-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             letter-spacing: -0.2px;
         }
         .item-date {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
-            margin-top: 0.15rem;
+            margin-top: 0.1rem;
         }
 
         .item-expand {
@@ -625,25 +629,93 @@
             grid-template-rows: 1fr;
         }
         .expand-content {
-            padding: 0 1rem 0.9rem;
+            padding: 0 0.8rem 0.7rem;
             border-top: 1px solid var(--glass-border);
         }
         .expand-desc {
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
-            line-height: 1.45;
-            margin-bottom: 0.5rem;
-            margin-top: 0.7rem;
+            line-height: 1.4;
+            margin-bottom: 0.3rem;
+            margin-top: 0.5rem;
+        }
+        .expand-version-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 0.4rem 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
+            transition: all 0.2s;
+        }
+        .expand-version-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(2px);
+        }
+        .expand-version-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            flex-shrink: 0;
+            min-width: 28px;
+        }
+        .expand-version-buttons button {
+            border: none;
+            border-radius: 12px;
+            padding: 0.08rem 0.2rem;
+            font-size: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-weight: 500;
+            text-align: center;
+        }
+        .expand-version-buttons .v-review.active-btn {
+            background: var(--btn-review);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+        }
+        .expand-version-buttons .v-download.active-btn {
+            background: var(--btn-download);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+        .expand-version-buttons .v-copy {
+            background: var(--btn-copy);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            color: #a855f7;
+        }
+        .expand-version-info {
+            flex: 1;
+            text-align: center;
+        }
+        .expand-version-name {
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .expand-version-date {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            margin-top: 0.05rem;
+        }
+        .expand-version-downloads {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            min-width: 55px;
+            text-align: right;
+            flex-shrink: 0;
         }
 
         .family-brand-item {
             background: var(--glass-bg);
             backdrop-filter: var(--backdrop-blur);
-            border-radius: 14px;
+            border-radius: 12px;
             transition: all 0.25s ease;
             position: relative;
             overflow: hidden;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             box-shadow: var(--neon-border);
         }
 
@@ -660,7 +732,7 @@
             display: flex;
             align-items: center;
             gap: 0.6rem;
-            padding: 0.7rem 1rem;
+            padding: 0.5rem 0.8rem;
             position: relative;
             z-index: 1;
             cursor: pointer;
@@ -669,9 +741,9 @@
         .brand-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.2rem;
             flex-shrink: 0;
-            min-width: 34px;
+            min-width: 30px;
         }
 
         .brand-info {
@@ -679,13 +751,13 @@
             text-align: center;
         }
         .brand-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
         .brand-date {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
-            margin-top: 0.15rem;
+            margin-top: 0.1rem;
         }
 
         .versions-container {
@@ -700,35 +772,35 @@
             grid-template-rows: 1fr;
         }
         .versions-inner {
-            padding: 0 1rem 0.9rem;
+            padding: 0 0.8rem 0.7rem;
             border-top: 1px solid var(--glass-border);
         }
         .version-item {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 0.5rem 0.8rem;
+            border-radius: 10px;
+            padding: 0.4rem 0.6rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
+            gap: 0.5rem;
+            margin-top: 0.3rem;
             transition: all 0.2s;
         }
         .version-item:hover {
             background: rgba(255, 255, 255, 0.08);
-            transform: translateX(3px);
+            transform: translateX(2px);
         }
         .version-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 0.15rem;
             flex-shrink: 0;
-            min-width: 32px;
+            min-width: 28px;
         }
         .version-review-btn, .version-download-btn, .version-copy-btn {
             border: none;
-            border-radius: 14px;
-            padding: 0.1rem 0.3rem;
-            font-size: 0.65rem;
+            border-radius: 12px;
+            padding: 0.08rem 0.2rem;
+            font-size: 0.5rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -756,25 +828,33 @@
             border: 1px solid rgba(168, 85, 247, 0.3);
             color: #a855f7;
             cursor: pointer;
-            font-size: 0.6rem;
+            font-size: 0.5rem;
         }
         .version-info {
             flex: 1;
             text-align: center;
         }
         .version-name {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 500;
         }
         .version-date {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
             color: var(--text-muted);
-            margin-top: 0.1rem;
+            margin-top: 0.05rem;
+        }
+        .version-downloads-right {
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            min-width: 55px;
+            text-align: right;
+            flex-shrink: 0;
         }
         .versions-label {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
-            margin: 0.8rem 0 0.2rem 0;
+            margin: 0.5rem 0 0.15rem 0;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -867,11 +947,11 @@
         }
 
         .section-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 1px;
-            margin-bottom: 0.7rem;
+            margin-bottom: 0.5rem;
             padding-bottom: 0.3rem;
             border-bottom: 1px solid var(--glass-border);
         }
@@ -879,16 +959,16 @@
         .top-items {
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
-            margin-bottom: 1.5rem;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
         }
         .top-item {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            padding: 0.6rem 0.9rem;
+            border-radius: 10px;
+            padding: 0.5rem 0.7rem;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.5rem;
             border-left: 3px solid var(--accent);
             transition: all 0.2s;
             box-shadow: var(--neon-border);
@@ -901,15 +981,15 @@
         .top-buttons {
             display: flex;
             flex-direction: column;
-            gap: 0.2rem;
+            gap: 0.15rem;
             flex-shrink: 0;
-            min-width: 32px;
+            min-width: 28px;
         }
         .top-review-btn, .top-download-btn, .top-copy-btn {
             border: none;
-            border-radius: 14px;
-            padding: 0.1rem 0.25rem;
-            font-size: 0.65rem;
+            border-radius: 12px;
+            padding: 0.08rem 0.2rem;
+            font-size: 0.5rem;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
@@ -932,27 +1012,35 @@
             color: #a855f7;
         }
         .top-rank {
-            font-size: 1rem;
-            min-width: 32px;
+            font-size: 0.9rem;
+            min-width: 28px;
         }
         .top-info {
             flex: 1;
             text-align: center;
         }
         .top-name {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
         }
         .top-date {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             color: var(--text-muted);
-            margin-top: 0.1rem;
+            margin-top: 0.05rem;
+        }
+        .top-downloads-right {
+            font-size: 0.55rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: right;
+            flex-shrink: 0;
         }
 
         .brands-list {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 0.6rem;
         }
         .no-results {
             text-align: center;
@@ -1014,15 +1102,16 @@
 
         @media (max-width: 768px) {
             .container { padding: 0.8rem; }
-            .brand-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
-            .item-main-row { gap: 0.4rem; padding: 0.6rem 0.8rem; }
-            .brand-buttons, .item-buttons { min-width: 32px; }
-            .btn-review, .btn-download, .btn-copy { font-size: 0.65rem; padding: 0.1rem 0.25rem; }
+            .brand-main-row { gap: 0.4rem; padding: 0.5rem 0.6rem; }
+            .item-main-row { gap: 0.4rem; padding: 0.5rem 0.6rem; }
+            .brand-buttons, .item-buttons { min-width: 28px; }
+            .btn-review, .btn-download, .btn-copy { font-size: 0.55rem; padding: 0.08rem 0.2rem; }
             .brand-name, .item-name { font-size: 0.7rem; }
             .build-version { font-size: 0.5rem; bottom: 10px; right: 10px; }
             .toast { font-size: 0.75rem; white-space: nowrap; padding: 8px 18px; }
             .updates-list { flex-direction: column; gap: 0.3rem; }
-            .update-item { font-size: 0.7rem; padding: 0.2rem 0.6rem; }
+            .update-item { font-size: 0.6rem; padding: 0.15rem 0.5rem; }
+            .category { min-width: 200px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1039,6 +1128,7 @@
         <div class="header-stats" id="totalModsCount">📦 всего модов: 0</div>
         <div class="header-stats" id="viewsCount">👁️ просмотров: --</div>
         <div class="header-right">
+            <button class="sound-toggle" id="soundToggle">🔊</button>
             <button class="lang-toggle" id="langToggle">🌐 EN</button>
             <button class="theme-toggle" id="themeToggle">
                 <svg class="sun-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor"/></svg>
@@ -1047,20 +1137,24 @@
         </div>
     </div>
 
-    <!-- ПЛАШКА С ОБНОВЛЕНИЯМИ (АККОРДЕОН, СВЁРНУТА ПО УМОЛЧАНИЮ) -->
+    <!-- ПЛАШКА С ОБНОВЛЕНИЯМИ -->
     <div class="updates-section" id="updatesSection">
         <div class="updates-header" id="updatesHeader">
-            <div class="updates-title">🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ</div>
+            <div class="updates-title">🔄 LAST UPD</div>
             <div class="updates-arrow">▼</div>
         </div>
         <div class="updates-content">
             <div>
                 <div class="updates-list" id="updatesList">
-                    <div class="update-item" data-target="inc-redux">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
-                    <div class="update-item" data-target="ydarnik-redux-v2">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
-                    <div class="update-item" data-target="uzi-vanilla">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
-                    <div class="update-item" data-target="hanami-redux">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
-                    <div class="update-item" data-target="allegri-redux-v3">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="x2-steps" data-open-family="true">X2 steps sounds <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="spec-lexaura" data-open-family="true">sound by LEXAURA <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="saig-spec" data-open-family="true">saig+spec <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="aqua-gp" data-open-family="true">AQUA GP <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="inc-redux" data-open-family="true">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="ydarnik-redux-v2" data-open-family="true">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="uzi-vanilla" data-open-family="true">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="hanami-redux" data-open-family="false">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="allegri-redux-v3" data-open-family="true">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
                 </div>
             </div>
         </div>
@@ -1069,10 +1163,6 @@
     <div class="search-section">
         <div class="global-search">
             <input type="text" id="globalSearch" placeholder="🔍 Поиск модов по всем категориям..." autocomplete="off">
-            <div class="sort-buttons">
-                <button class="sort-btn" data-sort="popular">📊 по популярности</button>
-                <button class="sort-btn" data-sort="name">🔤 по названию</button>
-            </div>
         </div>
         <div class="filter-buttons">
             <button class="filter-btn active" data-filter="all">Все</button>
@@ -1088,9 +1178,9 @@
         <div class="category" data-category="sounds">
             <div class="category-title">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4a2 2 0 0 0 2 2h2l4 4V4L7 8H5a2 2 0 0 0-2 2z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg>
-                ЗВУКИ / СПЕШ / ТЯЖК / САЙГ
+                ЗВУКИ
             </div>
-            <div class="category-sub">sound packs · voice · heavy · sige</div>
+            <div class="category-sub">sound packs · voice · heavy</div>
             <ul class="item-list" id="soundsList"></ul>
         </div>
 
@@ -1099,7 +1189,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 12h4l2 2-2 2h-4"/><path d="M18 8h-4v8h4"/><path d="M10 12H6l-2-2 2-2h4"/><path d="M6 8h4v8H6"/><circle cx="12" cy="12" r="2"/></svg>
                 GUNPAC
             </div>
-            <div class="category-sub">оружие · анимации · звуки выстрелов</div>
+            <div class="category-sub">оружие · анимации · звуки</div>
             <ul class="item-list" id="gunpacList"></ul>
         </div>
 
@@ -1160,7 +1250,7 @@
     </div>
 </div>
 
-<div class="build-version">0.05 upd 16.06.2026</div>
+<div class="build-version">0.07 upd 16.06.2026</div>
 
 <script>
     // === ДАННЫЕ ===
@@ -1172,18 +1262,16 @@
         ru: {
             totalMods: "📦 всего модов:",
             searchPlaceholder: "🔍 Поиск модов по всем категориям...",
-            sortPopular: "📊 по популярности",
-            sortName: "🔤 по названию",
             filterAll: "Все",
             filterSounds: "🎧 Звуки",
             filterGunpac: "🔫 Оружие",
             filterTimemap: "⏰ TIME/MAP",
             filterIndividual: "👤 Индивидуальные",
             filterFamily: "👨‍👩‍👧‍👦 Семьи",
-            soundsTitle: "ЗВУКИ / СПЕШ / ТЯЖК / САЙГ",
-            soundsSub: "sound packs · voice · heavy · sige",
+            soundsTitle: "ЗВУКИ",
+            soundsSub: "sound packs · voice · heavy",
             gunpacTitle: "GUNPAC",
-            gunpacSub: "оружие · анимации · звуки выстрелов",
+            gunpacSub: "оружие · анимации · звуки",
             timemapTitle: "TIME / MAP",
             timemapSub: "таймциклы · уникальные карты",
             individualTitle: "ИНДИВИДУАЛЬНЫЕ",
@@ -1192,7 +1280,7 @@
             familyHeaderSub: "редуксы от топовых семей · с версиями",
             topLabel: "⭐ ПОПУЛЯРНЫЕ ПО СКАЧИВАНИЯМ",
             brandsLabel: "🏷️ РЕДУКСЫ ПО СЕМЬЯМ",
-            oldVersions: "📜 Старые версии",
+            oldVersions: "📜 Другие версии",
             discordText: "Discord:",
             infoText: "По предложениям добавления модификаций на сайт (публичные/личные)\nпрошу написать мне в личные сообщения Discord",
             noResults: "🔍 Ничего не найдено",
@@ -1206,21 +1294,21 @@
             themeChanged: "🌓 {{theme}} тема",
             themeDark: "Тёмная",
             themeLight: "Светлая",
-            updatesTitle: "🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ"
+            updatesTitle: "🔄 LAST UPD",
+            soundOn: "🔊 звук вкл",
+            soundOff: "🔇 звук выкл"
         },
         en: {
             totalMods: "📦 total mods:",
             searchPlaceholder: "🔍 Search mods in all categories...",
-            sortPopular: "📊 by popularity",
-            sortName: "🔤 by name",
             filterAll: "All",
             filterSounds: "🎧 Sounds",
             filterGunpac: "🔫 Gunpac",
             filterTimemap: "⏰ TIME/MAP",
             filterIndividual: "👤 Individual",
             filterFamily: "👨‍👩‍👧‍👦 Families",
-            soundsTitle: "SOUNDS / SPEC / HEAVY / SIGE",
-            soundsSub: "sound packs · voice · heavy · sige",
+            soundsTitle: "SOUNDS",
+            soundsSub: "sound packs · voice · heavy",
             gunpacTitle: "GUNPAC",
             gunpacSub: "weapons · animations · sounds",
             timemapTitle: "TIME / MAP",
@@ -1231,7 +1319,7 @@
             familyHeaderSub: "top family redux · with versions",
             topLabel: "⭐ TOP BY DOWNLOADS",
             brandsLabel: "🏷️ REDUX BY FAMILY",
-            oldVersions: "📜 Old versions",
+            oldVersions: "📜 Other versions",
             discordText: "Discord:",
             infoText: "For suggestions on adding mods to the site (public/private)\nplease write to me in Discord private messages",
             noResults: "🔍 Nothing found",
@@ -1245,7 +1333,9 @@
             themeChanged: "🌓 {{theme}} theme",
             themeDark: "Dark",
             themeLight: "Light",
-            updatesTitle: "🔄 LATEST UPDATES"
+            updatesTitle: "🔄 LAST UPD",
+            soundOn: "🔊 sound on",
+            soundOff: "🔇 sound off"
         }
     };
 
@@ -1260,10 +1350,6 @@
     function updateAllTexts() {
         const globalSearch = document.getElementById('globalSearch');
         if (globalSearch) globalSearch.placeholder = t('searchPlaceholder');
-        
-        const sortBtns = document.querySelectorAll('.sort-btn');
-        if (sortBtns[0]) sortBtns[0].innerHTML = t('sortPopular');
-        if (sortBtns[1]) sortBtns[1].innerHTML = t('sortName');
         
         const filterBtns = document.querySelectorAll('.filter-btn');
         if (filterBtns[0]) filterBtns[0].innerHTML = t('filterAll');
@@ -1318,92 +1404,109 @@
             viewsEl.innerText = currentLang === 'ru' ? `👁️ просмотров: ${viewsVal}` : `👁️ views: ${viewsVal}`;
         }
         
+        const soundToggle = document.getElementById('soundToggle');
+        if (soundToggle) {
+            const isSoundOff = soundToggle.classList.contains('off');
+            soundToggle.innerText = isSoundOff ? '🔇' : '🔊';
+            soundToggle.title = isSoundOff ? t('soundOff') : t('soundOn');
+        }
+        
         applyFilters();
         updateTotalModsCount();
     }
 
     // === ДАННЫЕ ===
-    const soundsData = [
-        { id: "spec", name: "spec", downloads: 0, descRu: "звуки на спешик", descEn: "spec sounds", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: "15.06.2026" },
-        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, descRu: "звуки на сайгу", descEn: "shotgun sounds", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "revolver", name: "revolver", downloads: 0, descRu: "ревик", descEn: "revolver", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, descRu: "хевик1/2", descEn: "heavy 1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
-    ];
+    // ЗВУКИ (объединены в одну плашку с версиями)
+    const soundsData = [{
+        name: "sound pack",
+        current: { id: "sound-pack", name: "sound pack", downloads: 0, desc: "пак звуков", descEn: "sound pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        versions: [
+            { id: "x2-steps", name: "X2 steps sounds", downloads: 0, desc: "звуки шагов x2", descEn: "x2 steps sounds", reviewUrl: "https://www.youtube.com/watch?v=4OG16ayxJ7k", downloadUrl: "https://drive.google.com/drive/mobile/folders/1y3KTnzFPjQsmt6a49Ox3miDD6g2nKOke", hasLinks: true, date: DEFAULT_DATE },
+            { id: "spec-lexaura", name: "sound by LEXAURA", downloads: 0, desc: "звуки от LEXAURA", descEn: "sound by LEXAURA", reviewUrl: "https://youtu.be/3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: DEFAULT_DATE },
+            { id: "saig-spec", name: "saig+spec", downloads: 0, desc: "сайга + спек", descEn: "saig+spec", reviewUrl: "https://youtu.be/KEy7FFZ71U4", downloadUrl: "https://drive.google.com/file/d/1zzysaWdxhOmC87AVom_xytZgMZB30lJK/view", hasLinks: true, date: DEFAULT_DATE }
+        ]
+    }];
 
-    const gunpacData = [
-        { id: "gun-black", name: "gun/black", downloads: 0, descRu: "ганы в темном стиле", descEn: "dark style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "gun-white", name: "gun/white", downloads: 0, descRu: "ганы в белом стиле", descEn: "white style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, descRu: "различные цвета", descEn: "various colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, descRu: "смешанные цвета", descEn: "mixed colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
-    ];
+    // GUNPAC (объединены в одну плашку с версиями)
+    const gunpacData = [{
+        name: "gun pack",
+        current: { id: "gun-pack", name: "gun pack", downloads: 0, desc: "пак оружия", descEn: "gun pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        versions: [
+            { id: "aqua-gp", name: "AQUA GP", downloads: 0, desc: "AQUA GP от 699 x NEVERDIE", descEn: "AQUA GP by 699 x NEVERDIE", reviewUrl: "https://www.youtube.com/watch?v=oDT8IsnbUsM", downloadUrl: "https://drive.google.com/drive/folders/18S5z82rwkLji1kD2JiAUgO390E-F_mmC", hasLinks: true, date: DEFAULT_DATE }
+        ]
+    }];
 
-    const timemapData = [
-        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, descRu: "таймы (небо/облака/день/ночь)", descEn: "timecycles (sky/clouds/day/night)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "farm-map", name: "farm map", downloads: 0, descRu: "мапа для фарма", descEn: "farm map", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "mcl-map", name: "Mcl map", downloads: 0, descRu: "Mcl зоны", descEn: "Mcl zones", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
-        { id: "mini-map", name: "Mini map", downloads: 0, descRu: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
-    ];
+    // TIME/MAP (объединены в одну плашку с версиями)
+    const timemapData = [{
+        name: "time / map",
+        current: { id: "timemap-pack", name: "time / map", downloads: 0, desc: "таймциклы и карты", descEn: "timecycles and maps", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        versions: [
+            { id: "time-cycle", name: "TIME CYCLE", downloads: 0, desc: "таймы (небо/облака/день/ночь)", descEn: "timecycles (sky/clouds/day/night)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+            { id: "farm-map", name: "farm map", downloads: 0, desc: "мапа для фарма", descEn: "farm map", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+            { id: "mcl-map", name: "Mcl map", downloads: 0, desc: "Mcl зоны", descEn: "Mcl zones", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+            { id: "mini-map", name: "Mini map", downloads: 0, desc: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
+        ]
+    }];
 
     const individualData = [
-        { id: "hanami-redux", name: "Hanami Redux", downloads: 0, descRu: "редукс от sakuta/ЧАРЫ/mirz", descEn: "Redux from sakuta/CHARY/mirz", reviewUrl: "https://www.youtube.com/watch?v=VG7fGad0OH8", downloadUrl: "https://drive.google.com/drive/folders/19_i1_kO0SjpKsCtH7yu92k1eBeeBDqul", hasLinks: true, date: DEFAULT_DATE }
+        { id: "hanami-redux", name: "Hanami Redux", downloads: 0, desc: "редукс от sakuta/ЧАРЫ/mirz", descEn: "Redux from sakuta/CHARY/mirz", reviewUrl: "https://www.youtube.com/watch?v=VG7fGad0OH8", downloadUrl: "https://drive.google.com/drive/folders/19_i1_kO0SjpKsCtH7yu92k1eBeeBDqul", hasLinks: true, date: DEFAULT_DATE }
     ];
 
     const familyBrands = [
         { 
             name: "Gucci", 
-            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, descRu: "редукс от Gucci V3", descEn: "Redux from Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
-            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, descRu: "редукс от Gucci V2", descEn: "Redux from Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
+            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, desc: "редукс от Gucci V3", descEn: "Redux from Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, desc: "редукс от Gucci V2", descEn: "Redux from Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
         },
         { 
             name: "Glow", 
-            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, descRu: "редукс от Glow", descEn: "Redux from Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, desc: "редукс от Glow", descEn: "Redux from Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Skye", 
-            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, descRu: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
-            versions: [{ id: "skye-gng-redux", name: "Skye GNG Redux", downloads: 0, descRu: "редукс от Skye GNG", descEn: "Redux from Skye GNG", reviewUrl: "https://www.youtube.com/watch?v=-CGH6HWXoUw", downloadUrl: "https://drive.google.com/file/d/1zyjdXvkfWG_x0qCjnG6LoGbiQQWXqye4/view", hasLinks: true, date: DEFAULT_DATE }] 
+            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, desc: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [{ id: "skye-gng-redux", name: "Skye GNG Redux", downloads: 0, desc: "редукс от Skye GNG", descEn: "Redux from Skye GNG", reviewUrl: "https://www.youtube.com/watch?v=-CGH6HWXoUw", downloadUrl: "https://drive.google.com/file/d/1zyjdXvkfWG_x0qCjnG6LoGbiQQWXqye4/view", hasLinks: true, date: DEFAULT_DATE }] 
         },
         { 
             name: "Blade", 
-            current: { id: "blade-v2", name: "Blade V2", downloads: 0, descRu: "редукс от Blade V2", descEn: "Redux from Blade V2", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/11Ua5MyDpNpeVylish-W_qM8PJ84QfntO", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "blade-v2", name: "Blade V2", downloads: 0, desc: "редукс от Blade V2", descEn: "Redux from Blade V2", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/11Ua5MyDpNpeVylish-W_qM8PJ84QfntO", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Sacred", 
-            current: { id: "sacred-v2", name: "Sacred V2", downloads: 0, descRu: "редукс от Sacred V2", descEn: "Redux from Sacred V2", reviewUrl: "https://www.youtube.com/watch?v=ngUPEP6ZhqQ", downloadUrl: "https://drive.google.com/drive/folders/1hpGS8DWUONlSIuMw8p7jnwwrFpkgP30z", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "sacred-v2", name: "Sacred V2", downloads: 0, desc: "редукс от Sacred V2", descEn: "Redux from Sacred V2", reviewUrl: "https://www.youtube.com/watch?v=ngUPEP6ZhqQ", downloadUrl: "https://drive.google.com/drive/folders/1hpGS8DWUONlSIuMw8p7jnwwrFpkgP30z", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Screamz", 
-            current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, descRu: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, desc: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Inc", 
-            current: { id: "inc-redux", name: "Inc Redux", downloads: 0, descRu: "редукс от Inc", descEn: "Redux from Inc", reviewUrl: "https://www.youtube.com/watch?v=qeJBWFrlrJs", downloadUrl: "https://drive.google.com/drive/folders/1xuxMS1KNV5GTD0kbaK84kg6lQMxwbiYF", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "inc-redux", name: "Inc Redux", downloads: 0, desc: "редукс от Inc", descEn: "Redux from Inc", reviewUrl: "https://www.youtube.com/watch?v=qeJBWFrlrJs", downloadUrl: "https://drive.google.com/drive/folders/1xuxMS1KNV5GTD0kbaK84kg6lQMxwbiYF", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Ydarnik", 
-            current: { id: "ydarnik-redux-v2", name: "Ydarnik Redux V2", downloads: 0, descRu: "редукс от Ydarnik V2", descEn: "Redux from Ydarnik V2", reviewUrl: "https://www.youtube.com/watch?v=jWHYcVH27wQ", downloadUrl: "https://drive.google.com/drive/folders/1phhiVPVL9sR3tyd4JJ2Ns_GX83fb7NCn", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "ydarnik-redux-v2", name: "Ydarnik Redux V2", downloads: 0, desc: "редукс от Ydarnik V2", descEn: "Redux from Ydarnik V2", reviewUrl: "https://www.youtube.com/watch?v=jWHYcVH27wQ", downloadUrl: "https://drive.google.com/drive/folders/1phhiVPVL9sR3tyd4JJ2Ns_GX83fb7NCn", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Uzi", 
-            current: { id: "uzi-vanilla", name: "Uzi Vanilla", downloads: 0, descRu: "редукс от Uzi", descEn: "Redux from Uzi", reviewUrl: "https://www.youtube.com/watch?v=yNR_Vggh__8", downloadUrl: "https://drive.google.com/drive/folders/1RM86ioStZpJ_CgsSCoN61iiLjX9Vll7y", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "uzi-vanilla", name: "Uzi Vanilla", downloads: 0, desc: "редукс от Uzi", descEn: "Redux from Uzi", reviewUrl: "https://www.youtube.com/watch?v=yNR_Vggh__8", downloadUrl: "https://drive.google.com/drive/folders/1RM86ioStZpJ_CgsSCoN61iiLjX9Vll7y", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         },
         { 
             name: "Allegri", 
-            current: { id: "allegri-redux-v3", name: "Allegri Redux V3", downloads: 0, descRu: "редукс от Allegri V3", descEn: "Redux from Allegri V3", reviewUrl: "https://www.youtube.com/watch?v=ZpKjP-jxJfk", downloadUrl: "https://drive.google.com/drive/folders/1Pb9dymZK3LT04FBpYHCUCte89leD2cMC", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "allegri-redux-v3", name: "Allegri Redux V3", downloads: 0, desc: "редукс от Allegri V3", descEn: "Redux from Allegri V3", reviewUrl: "https://www.youtube.com/watch?v=ZpKjP-jxJfk", downloadUrl: "https://drive.google.com/drive/folders/1Pb9dymZK3LT04FBpYHCUCte89leD2cMC", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         }
     ];
 
     let clickCount = 0;
     let currentFilter = "all";
-    let currentSort = "popular";
     let globalSearchQuery = "";
     let familySearchQuery = "";
     
@@ -1415,8 +1518,44 @@
         viewsElement.innerText = `👁️ просмотров: ${viewsCount}`;
     }
 
+    // Звук тапинга
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function playTapSound() {
+        if (!soundEnabled) return;
+        try {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.frequency.setValueAtTime(900 + Math.random() * 200, audioCtx.currentTime);
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.05);
+        } catch (e) {}
+    }
+
+    // Кнопка звука
+    const soundToggle = document.getElementById('soundToggle');
+    if (soundToggle) {
+        soundToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            soundEnabled = !soundEnabled;
+            this.classList.toggle('off');
+            this.innerText = soundEnabled ? '🔊' : '🔇';
+            this.title = soundEnabled ? t('soundOn') : t('soundOff');
+            showToast(soundEnabled ? t('soundOn') : t('soundOff'), 1000);
+        });
+    }
+
     function getDesc(item) {
-        return currentLang === 'ru' ? (item.descRu || item.desc || '') : (item.descEn || item.desc || '');
+        return currentLang === 'ru' ? (item.desc || '') : (item.descEn || '');
     }
 
     function showToast(message, duration = 2000) {
@@ -1433,14 +1572,22 @@
         }, duration);
     }
 
-    function scrollToMod(targetId) {
+    function scrollToMod(targetId, openFamily = false) {
+        if (openFamily) {
+            const familyHeader = document.getElementById('familyHeader');
+            const familyContent = document.getElementById('familyContent');
+            if (familyHeader && !familyHeader.classList.contains('open')) {
+                familyHeader.classList.add('open');
+                familyContent.classList.add('open');
+            }
+        }
+        
         const element = document.getElementById(`mod-${targetId}`);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            element.classList.add('active');
             setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 element.classList.add('active');
-            }, 100);
+            }, 300);
             showToast(`🔍 Переход к "${element.querySelector('.item-name, .brand-name')?.textContent || targetId}"`, 1000);
         } else {
             showToast(`❌ Мод "${targetId}" не найден`, 1000);
@@ -1448,7 +1595,17 @@
     }
 
     function updateTotalModsCount() {
-        const total = soundsData.length + gunpacData.length + timemapData.length + individualData.length +
+        let total = 0;
+        soundsData.forEach(item => {
+            total += 1 + (item.versions ? item.versions.length : 0);
+        });
+        gunpacData.forEach(item => {
+            total += 1 + (item.versions ? item.versions.length : 0);
+        });
+        timemapData.forEach(item => {
+            total += 1 + (item.versions ? item.versions.length : 0);
+        });
+        total += individualData.length +
             familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
         document.getElementById('totalModsCount').innerText = `${t('totalMods')} ${total}`;
     }
@@ -1503,37 +1660,37 @@
         containers.forEach(id => {
             const container = document.getElementById(id);
             if (container && id !== 'topReduxList') {
-                container.innerHTML = '<div class="skeleton"><div class="skeleton-row"><div class="skeleton-btn"></div><div class="skeleton-text"></div></div></div>'.repeat(3);
+                container.innerHTML = '<div class="skeleton"><div class="skeleton-row"><div class="skeleton-btn"></div><div class="skeleton-text"></div></div></div>'.repeat(2);
             } else if (container && id === 'topReduxList') {
                 container.innerHTML = '<div class="skeleton"><div class="skeleton-row"><div class="skeleton-btn"></div><div class="skeleton-text"></div></div></div>'.repeat(3);
             }
         });
     }
 
-    function attachEvents() {
-        document.querySelectorAll('.btn-review.active-btn').forEach(btn => {
+    function attachVersionEvents(container) {
+        container.querySelectorAll('.expand-version-buttons .v-review.active-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
             });
         });
-        document.querySelectorAll('.btn-download.active-btn').forEach(btn => {
+        container.querySelectorAll('.expand-version-buttons .v-download.active-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
             });
         });
-        document.querySelectorAll('.btn-copy').forEach(btn => {
+        container.querySelectorAll('.expand-version-buttons .v-copy').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
             });
         });
-        document.querySelectorAll('.glass-item').forEach(item => {
+        container.querySelectorAll('.glass-item').forEach(item => {
             const mainRow = item.querySelector('.item-main-row');
             if (mainRow) {
                 mainRow.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('btn-review') || e.target.classList.contains('btn-download') || e.target.classList.contains('btn-copy')) return;
+                    if (e.target.closest('button')) return;
                     item.classList.toggle('active');
                 });
             }
@@ -1581,162 +1738,73 @@
             const mainRow = item.querySelector('.brand-main-row');
             if (mainRow) {
                 mainRow.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('btn-review') || e.target.classList.contains('btn-download') || e.target.classList.contains('btn-copy') ||
-                        e.target.classList.contains('version-review-btn') || e.target.classList.contains('version-download-btn') || e.target.classList.contains('version-copy-btn')) return;
+                    if (e.target.closest('button')) return;
                     item.classList.toggle('active');
                 });
             }
         });
     }
 
-    function renderSounds() {
-        const container = document.getElementById('soundsList');
-        let filtered = [...soundsData];
+    function renderItemWithVersions(containerId, data) {
+        const container = document.getElementById(containerId);
+        let filtered = data;
         
         if (globalSearchQuery) {
             filtered = filtered.filter(item => 
                 item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
+                getDesc(item.current).toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+                item.versions.some(v => v.name.toLowerCase().includes(globalSearchQuery.toLowerCase()))
             );
         }
         
-        if (currentSort === 'popular') {
-            filtered.sort((a, b) => b.downloads - a.downloads);
-        } else {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        
-        if (currentFilter !== 'all' && currentFilter !== 'sounds') {
+        const category = container.closest('.category');
+        const categoryType = category ? category.getAttribute('data-category') : '';
+        if (currentFilter !== 'all' && currentFilter !== categoryType) {
             filtered = [];
         }
         
-        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'sounds') {
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== categoryType) {
             container.innerHTML = '';
             return;
         }
         
         container.innerHTML = filtered.map(item => `
-            <li class="glass-item" id="mod-${item.id}">
+            <li class="glass-item" id="mod-${item.current.id}">
                 <div class="item-main-row">
                     <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
-                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                        <button class="btn-review ${getButtonClass(item.current.hasLinks)}" data-name="${item.current.name.replace(/'/g, "\\'")}" data-url="${item.current.reviewUrl}" ${!item.current.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(item.current.hasLinks)}" data-name="${item.current.name.replace(/'/g, "\\'")}" data-url="${item.current.downloadUrl}" ${!item.current.hasLinks ? 'disabled' : ''}>⬇️</button>
+                        <button class="btn-copy" data-name="${item.current.name.replace(/'/g, "\\'")}" data-id="${item.current.id}">🔗</button>
                     </div>
                     <div class="item-info">
                         <div class="item-name">${item.name}</div>
-                        <div class="item-date">📅 ${item.date}</div>
+                        <div class="item-date">last upd ${item.current.date}</div>
                     </div>
                 </div>
                 <div class="item-expand">
                     <div class="expand-content">
-                        <div class="expand-desc">${getDesc(item)}</div>
+                        <div class="expand-desc">${getDesc(item.current)}</div>
+                        <div class="versions-label">${t('oldVersions')}</div>
+                        ${item.versions.map(v => `
+                            <div class="expand-version-item" id="mod-${v.id}">
+                                <div class="expand-version-buttons">
+                                    <button class="v-review ${getButtonClass(v.hasLinks)}" data-name="${v.name.replace(/'/g, "\\'")}" data-url="${v.reviewUrl}" ${!v.hasLinks ? 'disabled' : ''}>🔍</button>
+                                    <button class="v-download ${getButtonClass(v.hasLinks)}" data-name="${v.name.replace(/'/g, "\\'")}" data-url="${v.downloadUrl}" ${!v.hasLinks ? 'disabled' : ''}>⬇️</button>
+                                    <button class="v-copy" data-name="${v.name.replace(/'/g, "\\'")}" data-id="${v.id}">🔗</button>
+                                </div>
+                                <div class="expand-version-info">
+                                    <div class="expand-version-name">${v.name}</div>
+                                    <div class="expand-version-date">📅 ${v.date}</div>
+                                </div>
+                                <div class="expand-version-downloads">📥 ${v.downloads}</div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             </li>
         `).join('');
         
-        attachEvents();
-    }
-
-    function renderGunpac() {
-        const container = document.getElementById('gunpacList');
-        let filtered = [...gunpacData];
-        
-        if (globalSearchQuery) {
-            filtered = filtered.filter(item => 
-                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
-            );
-        }
-        
-        if (currentSort === 'popular') {
-            filtered.sort((a, b) => b.downloads - a.downloads);
-        } else {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        
-        if (currentFilter !== 'all' && currentFilter !== 'gunpac') {
-            filtered = [];
-        }
-        
-        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'gunpac') {
-            container.innerHTML = '';
-            return;
-        }
-        
-        container.innerHTML = filtered.map(item => `
-            <li class="glass-item" id="mod-${item.id}">
-                <div class="item-main-row">
-                    <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
-                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-date">📅 ${item.date}</div>
-                    </div>
-                </div>
-                <div class="item-expand">
-                    <div class="expand-content">
-                        <div class="expand-desc">${getDesc(item)}</div>
-                    </div>
-                </div>
-            </li>
-        `).join('');
-        
-        attachEvents();
-    }
-
-    function renderTimemap() {
-        const container = document.getElementById('timemapList');
-        let filtered = [...timemapData];
-        
-        if (globalSearchQuery) {
-            filtered = filtered.filter(item => 
-                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
-            );
-        }
-        
-        if (currentSort === 'popular') {
-            filtered.sort((a, b) => b.downloads - a.downloads);
-        } else {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
-        }
-        
-        if (currentFilter !== 'all' && currentFilter !== 'timemap') {
-            filtered = [];
-        }
-        
-        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'timemap') {
-            container.innerHTML = '';
-            return;
-        }
-        
-        container.innerHTML = filtered.map(item => `
-            <li class="glass-item" id="mod-${item.id}">
-                <div class="item-main-row">
-                    <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
-                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-date">📅 ${item.date}</div>
-                    </div>
-                </div>
-                <div class="item-expand">
-                    <div class="expand-content">
-                        <div class="expand-desc">${getDesc(item)}</div>
-                    </div>
-                </div>
-            </li>
-        `).join('');
-        
-        attachEvents();
+        attachVersionEvents(container);
     }
 
     function renderIndividual() {
@@ -1748,12 +1816,6 @@
                 item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
                 getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
             );
-        }
-        
-        if (currentSort === 'popular') {
-            filtered.sort((a, b) => b.downloads - a.downloads);
-        } else {
-            filtered.sort((a, b) => a.name.localeCompare(b.name));
         }
         
         if (currentFilter !== 'all' && currentFilter !== 'individual') {
@@ -1775,7 +1837,7 @@
                     </div>
                     <div class="item-info">
                         <div class="item-name">${item.name}</div>
-                        <div class="item-date">📅 ${item.date}</div>
+                        <div class="item-date">last upd ${item.date}</div>
                     </div>
                 </div>
                 <div class="item-expand">
@@ -1786,7 +1848,34 @@
             </li>
         `).join('');
         
-        attachEvents();
+        // Attach events для кнопок внутри individual
+        container.querySelectorAll('.btn-review.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        container.querySelectorAll('.btn-download.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        container.querySelectorAll('.btn-copy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+        container.querySelectorAll('.glass-item').forEach(item => {
+            const mainRow = item.querySelector('.item-main-row');
+            if (mainRow) {
+                mainRow.addEventListener('click', (e) => {
+                    if (e.target.closest('button')) return;
+                    item.classList.toggle('active');
+                });
+            }
+        });
     }
 
     function renderTop() {
@@ -1812,6 +1901,7 @@
                         <div class="top-name">${item.name}</div>
                         <div class="top-date">📅 ${item.date}</div>
                     </div>
+                    <div class="top-downloads-right">📥 ${item.downloads}</div>
                 </div>
             `;
         }).join('');
@@ -1877,7 +1967,7 @@
                     </div>
                     <div class="brand-info">
                         <div class="brand-name">${brand.current.name}</div>
-                        <div class="brand-date">📅 ${brand.current.date}</div>
+                        <div class="brand-date">last upd ${brand.current.date}</div>
                     </div>
                 </div>
                 ${brand.versions.length > 0 ? `
@@ -1896,6 +1986,7 @@
                                         <div class="version-name">${v.name}</div>
                                         <div class="version-date">📅 ${v.date}</div>
                                     </div>
+                                    <div class="version-downloads-right">📥 ${v.downloads}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -1909,9 +2000,9 @@
     }
 
     function applyFilters() {
-        renderSounds();
-        renderGunpac();
-        renderTimemap();
+        renderItemWithVersions('soundsList', soundsData);
+        renderItemWithVersions('gunpacList', gunpacData);
+        renderItemWithVersions('timemapList', timemapData);
         renderIndividual();
         renderBrands();
         renderTop();
@@ -1950,15 +2041,6 @@
         });
     });
 
-    document.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentSort = btn.getAttribute('data-sort');
-            applyFilters();
-        });
-    });
-
     const familyHeader = document.getElementById('familyHeader');
     const familyContent = document.getElementById('familyContent');
     if (familyHeader && familyContent) {
@@ -1977,12 +2059,13 @@
         });
     }
 
-    // Клик по элементам обновлений — скролл к моду
+    // Клик по элементам обновлений — скролл к моду + открытие семейных
     document.querySelectorAll('.update-item').forEach(item => {
         item.addEventListener('click', () => {
             const targetId = item.getAttribute('data-target');
+            const openFamily = item.getAttribute('data-open-family') === 'true';
             if (targetId) {
-                scrollToMod(targetId);
+                scrollToMod(targetId, openFamily);
             }
         });
     });
@@ -2006,50 +2089,28 @@
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             const current = body.getAttribute('data-theme');
-            if (current === 'light') body.setAttribute('data-theme', 'dark');
-            else body.setAttribute('data-theme', 'light');
+            if (current === 'light') {
+                body.setAttribute('data-theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+            }
             localStorage.setItem('theme', body.getAttribute('data-theme'));
             const themeName = body.getAttribute('data-theme') === 'light' ? t('themeLight') : t('themeDark');
             showToast(t('themeChanged', { theme: themeName }), 800);
         });
     }
 
-    // === ПРИЯТНЫЙ ЗВУК ТАПИНГА ===
-    (function() {
-        let audioCtx = null;
-        function playTapSound() {
-            try {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.frequency.setValueAtTime(900 + Math.random() * 200, audioCtx.currentTime);
-                oscillator.type = 'sine';
-                gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.05);
-            } catch (e) {}
+    // Звук при клике
+    document.addEventListener('click', function(e) {
+        const target = e.target.closest('button, .btn-review, .btn-download, .btn-copy, .filter-btn, .lang-toggle, .theme-toggle, .family-header, .update-item, .glass-item .item-main-row, .brand-main-row, .discord-link, .sound-toggle');
+        if (target) {
+            playTapSound();
         }
-        document.addEventListener('click', function(e) {
-            const target = e.target.closest('button, .btn-review, .btn-download, .btn-copy, .filter-btn, .sort-btn, .lang-toggle, .theme-toggle, .family-header, .update-item, .glass-item .item-main-row, .brand-main-row, .discord-link');
-            if (target) {
-                playTapSound();
-            }
-        }, { passive: true });
-    })();
+    }, { passive: true });
 
     showSkeleton();
     setTimeout(() => {
-        renderSounds();
-        renderGunpac();
-        renderTimemap();
-        renderIndividual();
-        renderBrands();
-        renderTop();
+        applyFilters();
         updateTotalModsCount();
         updateAllTexts();
     }, 300);
