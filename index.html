@@ -2034,5 +2034,50 @@
         }
     });
 </script>
+    // === ПРИЯТНЫЙ ЗВУК ТАПИНГА ===
+(function() {
+    // Создаём аудио-контекст (инициализируем при первом клике)
+    let audioCtx = null;
+    
+    function playTapSound() {
+        try {
+            // Создаём контекст при первом использовании
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            
+            // Генерируем короткий "тап"
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            // Частота: 800-1000 Гц (приятный звук)
+            oscillator.frequency.setValueAtTime(900 + Math.random() * 200, audioCtx.currentTime);
+            oscillator.type = 'sine'; // мягкий синус
+            
+            // Громкость: быстрый затухающий импульс
+            gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+            
+            // Длительность: 50 мс
+            oscillator.start(audioCtx.currentTime);
+            oscillator.stop(audioCtx.currentTime + 0.05);
+            
+        } catch (e) {
+            // Если звук не поддерживается — просто игнорируем
+        }
+    }
+    
+    // Вешаем обработчик на все клики
+    document.addEventListener('click', function(e) {
+        // Проверяем, что клик был по кликабельному элементу
+        const target = e.target.closest('button, .btn-review, .btn-download, .btn-copy, .filter-btn, .sort-btn, .lang-toggle, .theme-toggle, .family-header, .update-item, .glass-item .item-main-row, .brand-main-row, .discord-link');
+        if (target) {
+            playTapSound();
+        }
+    }, { passive: true });
+})();
 </body>
 </html>
