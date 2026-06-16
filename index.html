@@ -1046,10 +1046,10 @@
 
 <script>
     // === ДАННЫЕ ===
-    const DEFAULT_DATE = "15.06.2026";
+    const DEFAULT_DATE = "16.06.2026";
 
     // === ЛОКАЛИЗАЦИЯ ===
-    let currentLang = 'ru'; // 'ru' или 'en'
+    let currentLang = 'ru';
 
     const translations = {
         ru: {
@@ -1133,16 +1133,13 @@
     }
 
     function updateAllTexts() {
-        // Обновляем глобальный поиск
         const globalSearch = document.getElementById('globalSearch');
         if (globalSearch) globalSearch.placeholder = t('searchPlaceholder');
         
-        // Кнопки сортировки
         const sortBtns = document.querySelectorAll('.sort-btn');
         if (sortBtns[0]) sortBtns[0].innerHTML = t('sortPopular');
         if (sortBtns[1]) sortBtns[1].innerHTML = t('sortName');
         
-        // Кнопки фильтров
         const filterBtns = document.querySelectorAll('.filter-btn');
         if (filterBtns[0]) filterBtns[0].innerHTML = t('filterAll');
         if (filterBtns[1]) filterBtns[1].innerHTML = t('filterSounds');
@@ -1150,7 +1147,6 @@
         if (filterBtns[3]) filterBtns[3].innerHTML = t('filterTimemap');
         if (filterBtns[4]) filterBtns[4].innerHTML = t('filterFamily');
         
-        // Категории
         const soundsCategory = document.querySelector('.category[data-category="sounds"] .category-title');
         const soundsCategorySub = document.querySelector('.category[data-category="sounds"] .category-sub');
         const gunpacCategory = document.querySelector('.category[data-category="gunpac"] .category-title');
@@ -1165,55 +1161,48 @@
         if (timemapCategory) timemapCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4 4 L8 8"/><path d="M20 4 L16 8"/></svg> ${t('timemapTitle')}`;
         if (timemapCategorySub) timemapCategorySub.innerHTML = t('timemapSub');
         
-        // Семейный блок
         const familyHeaderTitle = document.querySelector('.family-header h3');
         const familyHeaderSpan = document.querySelector('.family-header span');
         if (familyHeaderTitle) familyHeaderTitle.innerHTML = t('familyHeaderTitle');
         if (familyHeaderSpan) familyHeaderSpan.innerHTML = t('familyHeaderSub');
         
-        // Лейблы
         const topLabel = document.querySelector('.top-section .section-label');
         const brandsLabel = document.querySelector('.family-inner .section-label:last-of-type');
         if (topLabel) topLabel.innerHTML = t('topLabel');
         if (brandsLabel) brandsLabel.innerHTML = t('brandsLabel');
         
-        // Поиск в семьях
         const brandSearch = document.getElementById('brandSearch');
         if (brandSearch) brandSearch.placeholder = currentLang === 'ru' ? "🔍 Поиск семей и редуксов..." : "🔍 Search families and redux...";
         
-        // Футер
         const discordText = document.querySelector('.discord-text');
         const infoText = document.querySelector('.info-text');
         if (discordText) discordText.innerHTML = t('discordText');
         if (infoText) infoText.innerHTML = t('infoText').replace(/\n/g, '<br>');
         
-        // Перерисовываем контент
         applyFilters();
-        
-        // Обновляем счётчик модов
         updateTotalModsCount();
     }
 
     // === ДАННЫЕ ===
     const soundsData = [
-        { id: "spec", name: "spec", downloads: 0, descRu: "звуки на спешик", descEn: "spec sounds", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: DEFAULT_DATE },
-        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, descRu: "звуки на сайгу", descEn: "shotgun sounds", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "revolver", name: "revolver", downloads: 0, descRu: "ревик", descEn: "revolver", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, descRu: "хевик1/2", descEn: "heavy 1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "spec", name: "spec", downloads: 0, descRu: "звуки на спешик", descEn: "spec sounds", reviewUrl: "https://www.youtube.com/watch?v=3tTK7U3rsjw", downloadUrl: "https://drive.google.com/file/d/1mlR1h_AwbmAFkESyp_IPwPxB8tWrAVZ5/view", hasLinks: true, date: "15.06.2026" },
+        { id: "heavy-shotgun", name: "heavy shotgun", downloads: 0, descRu: "звуки на сайгу", descEn: "shotgun sounds", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "revolver", name: "revolver", downloads: 0, descRu: "ревик", descEn: "revolver", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "sniper", name: "sniper mk1/mk2", downloads: 0, descRu: "хевик1/2", descEn: "heavy 1/2", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
     ];
 
     const gunpacData = [
-        { id: "gun-black", name: "gun/black", downloads: 0, descRu: "ганы в темном стиле", descEn: "dark style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-white", name: "gun/white", downloads: 0, descRu: "ганы в белом стиле", descEn: "white style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, descRu: "различные цвета", descEn: "various colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, descRu: "смешанные цвета", descEn: "mixed colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "gun-black", name: "gun/black", downloads: 0, descRu: "ганы в темном стиле", descEn: "dark style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "gun-white", name: "gun/white", downloads: 0, descRu: "ганы в белом стиле", descEn: "white style guns", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "gun-rbp", name: "gun/red,blue,purple", downloads: 0, descRu: "различные цвета", descEn: "various colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "gun-rainbow", name: "gun/rainbow", downloads: 0, descRu: "смешанные цвета", descEn: "mixed colors", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
     ];
 
     const timemapData = [
-        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, descRu: "таймы (небо/облака/день/ночь)", descEn: "timecycles (sky/clouds/day/night)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "farm-map", name: "farm map", downloads: 0, descRu: "мапа для фарма", descEn: "farm map", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "mcl-map", name: "Mcl map", downloads: 0, descRu: "Mcl зоны", descEn: "Mcl zones", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE },
-        { id: "mini-map", name: "Mini map", downloads: 0, descRu: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: DEFAULT_DATE }
+        { id: "time-cycle", name: "TIME CYCLE", downloads: 0, descRu: "таймы (небо/облака/день/ночь)", descEn: "timecycles (sky/clouds/day/night)", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "farm-map", name: "farm map", downloads: 0, descRu: "мапа для фарма", descEn: "farm map", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "mcl-map", name: "Mcl map", downloads: 0, descRu: "Mcl зоны", descEn: "Mcl zones", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        { id: "mini-map", name: "Mini map", downloads: 0, descRu: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
     ];
 
     const familyBrands = [
@@ -1230,6 +1219,21 @@
         { 
             name: "Skye", 
             current: { id: "skye-redux", name: "Skye Redux", downloads: 0, descRu: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [{ id: "skye-gng-redux", name: "Skye GNG Redux", downloads: 0, descRu: "редукс от Skye GNG", descEn: "Redux from Skye GNG", reviewUrl: "https://www.youtube.com/watch?v=-CGH6HWXoUw", downloadUrl: "https://drive.google.com/file/d/1zyjdXvkfWG_x0qCjnG6LoGbiQQWXqye4/view", hasLinks: true, date: DEFAULT_DATE }] 
+        },
+        { 
+            name: "Blade", 
+            current: { id: "blade-v2", name: "Blade V2", downloads: 0, descRu: "редукс от Blade V2", descEn: "Redux from Blade V2", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/11Ua5MyDpNpeVylish-W_qM8PJ84QfntO", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Sacred", 
+            current: { id: "sacred-v2", name: "Sacred V2", downloads: 0, descRu: "редукс от Sacred V2", descEn: "Redux from Sacred V2", reviewUrl: "https://www.youtube.com/watch?v=ngUPEP6ZhqQ", downloadUrl: "https://drive.google.com/drive/folders/1hpGS8DWUONlSIuMw8p7jnwwrFpkgP30z", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Screamz", 
+            current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, descRu: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         }
     ];
@@ -1728,7 +1732,6 @@
         });
     }
 
-    // Языковая кнопка
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
         langToggle.addEventListener('click', () => {
