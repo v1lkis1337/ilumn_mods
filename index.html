@@ -89,7 +89,7 @@
             }
         }
 
-        .glass-item, .family-brand-item, .top-item, .category {
+        .glass-item, .family-brand-item, .top-item, .category, .update-item {
             animation: fadeInUp 0.4s ease forwards;
         }
 
@@ -261,6 +261,46 @@
         [data-theme="dark"] .theme-toggle .sun-icon { display: none; }
         [data-theme="light"] .theme-toggle .sun-icon { display: block; }
         [data-theme="light"] .theme-toggle .moon-icon { display: none; }
+
+        /* Плашка с обновлениями */
+        .updates-section {
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: var(--backdrop-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 0.8rem 1.2rem;
+            box-shadow: var(--neon-border);
+        }
+        .updates-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+        .updates-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+        .update-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.2s;
+            animation: fadeInUp 0.4s ease forwards;
+        }
+        .update-item:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-1px);
+        }
+        .update-item .upd-date {
+            color: var(--text-muted);
+            font-size: 0.6rem;
+        }
 
         .search-section {
             margin-bottom: 1.5rem;
@@ -934,6 +974,8 @@
             .brand-name, .item-name { font-size: 0.7rem; }
             .build-version { font-size: 0.5rem; bottom: 10px; right: 10px; }
             .toast { font-size: 0.75rem; white-space: nowrap; padding: 8px 18px; }
+            .updates-list { flex-direction: column; gap: 0.3rem; }
+            .update-item { font-size: 0.7rem; padding: 0.2rem 0.6rem; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -958,6 +1000,18 @@
         </div>
     </div>
 
+    <!-- ПЛАШКА С ОБНОВЛЕНИЯМИ -->
+    <div class="updates-section" id="updatesSection">
+        <div class="updates-title">🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ</div>
+        <div class="updates-list" id="updatesList">
+            <div class="update-item">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
+            <div class="update-item">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
+            <div class="update-item">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
+            <div class="update-item">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
+            <div class="update-item">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
+        </div>
+    </div>
+
     <div class="search-section">
         <div class="global-search">
             <input type="text" id="globalSearch" placeholder="🔍 Поиск модов по всем категориям..." autocomplete="off">
@@ -971,6 +1025,7 @@
             <button class="filter-btn" data-filter="sounds">🎧 Звуки</button>
             <button class="filter-btn" data-filter="gunpac">🔫 Оружие</button>
             <button class="filter-btn" data-filter="timemap">⏰ TIME/MAP</button>
+            <button class="filter-btn" data-filter="individual">👤 Индивидуальные</button>
             <button class="filter-btn" data-filter="family">👨‍👩‍👧‍👦 Семьи</button>
         </div>
     </div>
@@ -1001,6 +1056,15 @@
             </div>
             <div class="category-sub">таймциклы · уникальные карты</div>
             <ul class="item-list" id="timemapList"></ul>
+        </div>
+
+        <div class="category" data-category="individual">
+            <div class="category-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+                ИНДИВИДУАЛЬНЫЕ
+            </div>
+            <div class="category-sub">редуксы от создателей</div>
+            <ul class="item-list" id="individualList"></ul>
         </div>
     </div>
 
@@ -1043,7 +1107,7 @@
 </div>
 
 <!-- Сборка сайта -->
-<div class="build-version">0.04 upd 16.06.2026</div>
+<div class="build-version">0.05 upd 16.06.2026</div>
 
 <script>
     // === ДАННЫЕ ===
@@ -1062,6 +1126,7 @@
             filterSounds: "🎧 Звуки",
             filterGunpac: "🔫 Оружие",
             filterTimemap: "⏰ TIME/MAP",
+            filterIndividual: "👤 Индивидуальные",
             filterFamily: "👨‍👩‍👧‍👦 Семьи",
             soundsTitle: "ЗВУКИ / СПЕШ / ТЯЖК / САЙГ",
             soundsSub: "sound packs · voice · heavy · sige",
@@ -1069,6 +1134,8 @@
             gunpacSub: "оружие · анимации · звуки выстрелов",
             timemapTitle: "TIME / MAP",
             timemapSub: "таймциклы · уникальные карты",
+            individualTitle: "ИНДИВИДУАЛЬНЫЕ",
+            individualSub: "редуксы от создателей",
             familyHeaderTitle: "👨‍👩‍👧‍👦 Семейные редуксы",
             familyHeaderSub: "редуксы от топовых семей · с версиями",
             topLabel: "⭐ ПОПУЛЯРНЫЕ ПО СКАЧИВАНИЯМ",
@@ -1086,7 +1153,8 @@
             copyError: "❌ Не удалось скопировать ссылку",
             themeChanged: "🌓 {{theme}} тема",
             themeDark: "Тёмная",
-            themeLight: "Светлая"
+            themeLight: "Светлая",
+            updatesTitle: "🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ"
         },
         en: {
             totalMods: "📦 total mods:",
@@ -1097,6 +1165,7 @@
             filterSounds: "🎧 Sounds",
             filterGunpac: "🔫 Gunpac",
             filterTimemap: "⏰ TIME/MAP",
+            filterIndividual: "👤 Individual",
             filterFamily: "👨‍👩‍👧‍👦 Families",
             soundsTitle: "SOUNDS / SPEC / HEAVY / SIGE",
             soundsSub: "sound packs · voice · heavy · sige",
@@ -1104,6 +1173,8 @@
             gunpacSub: "weapons · animations · sounds",
             timemapTitle: "TIME / MAP",
             timemapSub: "timecycles · unique maps",
+            individualTitle: "INDIVIDUAL",
+            individualSub: "redux from creators",
             familyHeaderTitle: "👨‍👩‍👧‍👦 Family Redux",
             familyHeaderSub: "top family redux · with versions",
             topLabel: "⭐ TOP BY DOWNLOADS",
@@ -1121,7 +1192,8 @@
             copyError: "❌ Failed to copy link",
             themeChanged: "🌓 {{theme}} theme",
             themeDark: "Dark",
-            themeLight: "Light"
+            themeLight: "Light",
+            updatesTitle: "🔄 LATEST UPDATES"
         }
     };
 
@@ -1146,7 +1218,8 @@
         if (filterBtns[1]) filterBtns[1].innerHTML = t('filterSounds');
         if (filterBtns[2]) filterBtns[2].innerHTML = t('filterGunpac');
         if (filterBtns[3]) filterBtns[3].innerHTML = t('filterTimemap');
-        if (filterBtns[4]) filterBtns[4].innerHTML = t('filterFamily');
+        if (filterBtns[4]) filterBtns[4].innerHTML = t('filterIndividual');
+        if (filterBtns[5]) filterBtns[5].innerHTML = t('filterFamily');
         
         const soundsCategory = document.querySelector('.category[data-category="sounds"] .category-title');
         const soundsCategorySub = document.querySelector('.category[data-category="sounds"] .category-sub');
@@ -1154,6 +1227,8 @@
         const gunpacCategorySub = document.querySelector('.category[data-category="gunpac"] .category-sub');
         const timemapCategory = document.querySelector('.category[data-category="timemap"] .category-title');
         const timemapCategorySub = document.querySelector('.category[data-category="timemap"] .category-sub');
+        const individualCategory = document.querySelector('.category[data-category="individual"] .category-title');
+        const individualCategorySub = document.querySelector('.category[data-category="individual"] .category-sub');
         
         if (soundsCategory) soundsCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4a2 2 0 0 0 2 2h2l4 4V4L7 8H5a2 2 0 0 0-2 2z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19 6a9 9 0 0 1 0 12"/></svg> ${t('soundsTitle')}`;
         if (soundsCategorySub) soundsCategorySub.innerHTML = t('soundsSub');
@@ -1161,6 +1236,8 @@
         if (gunpacCategorySub) gunpacCategorySub.innerHTML = t('gunpacSub');
         if (timemapCategory) timemapCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/><path d="M4 4 L8 8"/><path d="M20 4 L16 8"/></svg> ${t('timemapTitle')}`;
         if (timemapCategorySub) timemapCategorySub.innerHTML = t('timemapSub');
+        if (individualCategory) individualCategory.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg> ${t('individualTitle')}`;
+        if (individualCategorySub) individualCategorySub.innerHTML = t('individualSub');
         
         const familyHeaderTitle = document.querySelector('.family-header h3');
         const familyHeaderSpan = document.querySelector('.family-header span');
@@ -1180,7 +1257,11 @@
         if (discordText) discordText.innerHTML = t('discordText');
         if (infoText) infoText.innerHTML = t('infoText').replace(/\n/g, '<br>');
         
-        // Обновляем текст счётчика просмотров при смене языка
+        // Обновляем плашку с обновлениями
+        const updatesTitle = document.querySelector('.updates-title');
+        if (updatesTitle) updatesTitle.innerHTML = t('updatesTitle');
+        
+        // Обновляем счётчик просмотров
         const viewsEl = document.getElementById('viewsCount');
         if (viewsEl) {
             const viewsVal = localStorage.getItem('pageViews') || 0;
@@ -1213,6 +1294,10 @@
         { id: "mini-map", name: "Mini map", downloads: 0, descRu: "мини мапа в углу/по центру", descEn: "mini map in corner/center", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" }
     ];
 
+    const individualData = [
+        { id: "hanami-redux", name: "Hanami Redux", downloads: 0, descRu: "редукс от sakuta/ЧАРЫ/mirz", descEn: "Redux from sakuta/CHARY/mirz", reviewUrl: "https://www.youtube.com/watch?v=VG7fGad0OH8", downloadUrl: "https://drive.google.com/drive/folders/19_i1_kO0SjpKsCtH7yu92k1eBeeBDqul", hasLinks: true, date: DEFAULT_DATE }
+    ];
+
     const familyBrands = [
         { 
             name: "Gucci", 
@@ -1242,6 +1327,26 @@
         { 
             name: "Screamz", 
             current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, descRu: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Inc", 
+            current: { id: "inc-redux", name: "Inc Redux", downloads: 0, descRu: "редукс от Inc", descEn: "Redux from Inc", reviewUrl: "https://www.youtube.com/watch?v=qeJBWFrlrJs", downloadUrl: "https://drive.google.com/drive/folders/1xuxMS1KNV5GTD0kbaK84kg6lQMxwbiYF", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Ydarnik", 
+            current: { id: "ydarnik-redux-v2", name: "Ydarnik Redux V2", downloads: 0, descRu: "редукс от Ydarnik V2", descEn: "Redux from Ydarnik V2", reviewUrl: "https://www.youtube.com/watch?v=jWHYcVH27wQ", downloadUrl: "https://drive.google.com/drive/folders/1phhiVPVL9sR3tyd4JJ2Ns_GX83fb7NCn", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Uzi", 
+            current: { id: "uzi-vanilla", name: "Uzi Vanilla", downloads: 0, descRu: "редукс от Uzi", descEn: "Redux from Uzi", reviewUrl: "https://www.youtube.com/watch?v=yNR_Vggh__8", downloadUrl: "https://drive.google.com/drive/folders/1RM86ioStZpJ_CgsSCoN61iiLjX9Vll7y", hasLinks: true, date: DEFAULT_DATE }, 
+            versions: [] 
+        },
+        { 
+            name: "Allegri", 
+            current: { id: "allegri-redux-v3", name: "Allegri Redux V3", downloads: 0, descRu: "редукс от Allegri V3", descEn: "Redux from Allegri V3", reviewUrl: "https://www.youtube.com/watch?v=ZpKjP-jxJfk", downloadUrl: "https://drive.google.com/drive/folders/1Pb9dymZK3LT04FBpYHCUCte89leD2cMC", hasLinks: true, date: DEFAULT_DATE }, 
             versions: [] 
         }
     ];
@@ -1280,7 +1385,7 @@
     }
 
     function updateTotalModsCount() {
-        const total = soundsData.length + gunpacData.length + timemapData.length + 
+        const total = soundsData.length + gunpacData.length + timemapData.length + individualData.length +
             familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
         document.getElementById('totalModsCount').innerText = `${t('totalMods')} ${total}`;
     }
@@ -1331,7 +1436,7 @@
     }
 
     function showSkeleton() {
-        const containers = ['soundsList', 'gunpacList', 'timemapList', 'brandsList', 'topReduxList'];
+        const containers = ['soundsList', 'gunpacList', 'timemapList', 'individualList', 'brandsList', 'topReduxList'];
         containers.forEach(id => {
             const container = document.getElementById(id);
             if (container && id !== 'topReduxList') {
@@ -1571,6 +1676,56 @@
         attachEvents();
     }
 
+    function renderIndividual() {
+        const container = document.getElementById('individualList');
+        let filtered = [...individualData];
+        
+        if (globalSearchQuery) {
+            filtered = filtered.filter(item => 
+                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
+                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
+            );
+        }
+        
+        if (currentSort === 'popular') {
+            filtered.sort((a, b) => b.downloads - a.downloads);
+        } else {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+        
+        if (currentFilter !== 'all' && currentFilter !== 'individual') {
+            filtered = [];
+        }
+        
+        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'individual') {
+            container.innerHTML = '';
+            return;
+        }
+        
+        container.innerHTML = filtered.map(item => `
+            <li class="glass-item" id="mod-${item.id}">
+                <div class="item-main-row">
+                    <div class="item-buttons">
+                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
+                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="item-info">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-date">📅 ${item.date}</div>
+                    </div>
+                </div>
+                <div class="item-expand">
+                    <div class="expand-content">
+                        <div class="expand-desc">${getDesc(item)}</div>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+        
+        attachEvents();
+    }
+
     function renderTop() {
         const allRedux = [];
         familyBrands.forEach(brand => {
@@ -1694,6 +1849,7 @@
         renderSounds();
         renderGunpac();
         renderTimemap();
+        renderIndividual();
         renderBrands();
         renderTop();
     }
@@ -1781,6 +1937,7 @@
         renderSounds();
         renderGunpac();
         renderTimemap();
+        renderIndividual();
         renderBrands();
         renderTop();
         updateTotalModsCount();
