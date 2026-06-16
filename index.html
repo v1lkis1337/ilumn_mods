@@ -262,28 +262,72 @@
         [data-theme="light"] .theme-toggle .sun-icon { display: block; }
         [data-theme="light"] .theme-toggle .moon-icon { display: none; }
 
-        /* Плашка с обновлениями */
+        /* Плашка с обновлениями - аккордеон */
         .updates-section {
             margin-bottom: 1.5rem;
             background: var(--glass-bg);
             backdrop-filter: var(--backdrop-blur);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 0.8rem 1.2rem;
             box-shadow: var(--neon-border);
+            overflow: hidden;
         }
+
+        .updates-header {
+            padding: 0.8rem 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .updates-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
         .updates-title {
             font-size: 0.7rem;
             text-transform: uppercase;
             color: var(--text-muted);
             letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
+
+        .updates-arrow {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        .updates-section.open .updates-arrow {
+            transform: rotate(180deg);
+        }
+
+        .updates-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease;
+        }
+
+        .updates-content > div {
+            overflow: hidden;
+        }
+
+        .updates-section.open .updates-content {
+            grid-template-rows: 1fr;
+        }
+
         .updates-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.6rem;
+            padding: 0 1.2rem 0.9rem 1.2rem;
         }
+
         .update-item {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 10px;
@@ -291,12 +335,16 @@
             font-size: 0.75rem;
             border: 1px solid var(--glass-border);
             transition: all 0.2s;
+            cursor: pointer;
             animation: fadeInUp 0.4s ease forwards;
         }
+
         .update-item:hover {
             border-color: var(--glass-border-hover);
             transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.08);
         }
+
         .update-item .upd-date {
             color: var(--text-muted);
             font-size: 0.6rem;
@@ -948,7 +996,6 @@
             line-height: 1.4;
         }
 
-        /* Сборка сайта */
         .build-version {
             position: fixed;
             bottom: 15px;
@@ -1000,15 +1047,22 @@
         </div>
     </div>
 
-    <!-- ПЛАШКА С ОБНОВЛЕНИЯМИ -->
+    <!-- ПЛАШКА С ОБНОВЛЕНИЯМИ (АККОРДЕОН, СВЁРНУТА ПО УМОЛЧАНИЮ) -->
     <div class="updates-section" id="updatesSection">
-        <div class="updates-title">🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ</div>
-        <div class="updates-list" id="updatesList">
-            <div class="update-item">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
-            <div class="update-item">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
-            <div class="update-item">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
-            <div class="update-item">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
-            <div class="update-item">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
+        <div class="updates-header" id="updatesHeader">
+            <div class="updates-title">🔄 ПОСЛЕДНИЕ ОБНОВЛЕНИЯ</div>
+            <div class="updates-arrow">▼</div>
+        </div>
+        <div class="updates-content">
+            <div>
+                <div class="updates-list" id="updatesList">
+                    <div class="update-item" data-target="inc-redux">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="ydarnik-redux-v2">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="uzi-vanilla">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="hanami-redux">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
+                    <div class="update-item" data-target="allegri-redux-v3">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1106,14 +1160,12 @@
     </div>
 </div>
 
-<!-- Сборка сайта -->
 <div class="build-version">0.05 upd 16.06.2026</div>
 
 <script>
     // === ДАННЫЕ ===
     const DEFAULT_DATE = "16.06.2026";
 
-    // === ЛОКАЛИЗАЦИЯ ===
     let currentLang = 'ru';
 
     const translations = {
@@ -1257,11 +1309,9 @@
         if (discordText) discordText.innerHTML = t('discordText');
         if (infoText) infoText.innerHTML = t('infoText').replace(/\n/g, '<br>');
         
-        // Обновляем плашку с обновлениями
         const updatesTitle = document.querySelector('.updates-title');
         if (updatesTitle) updatesTitle.innerHTML = t('updatesTitle');
         
-        // Обновляем счётчик просмотров
         const viewsEl = document.getElementById('viewsCount');
         if (viewsEl) {
             const viewsVal = localStorage.getItem('pageViews') || 0;
@@ -1357,7 +1407,6 @@
     let globalSearchQuery = "";
     let familySearchQuery = "";
     
-    // Счётчик просмотров
     let viewsCount = localStorage.getItem('pageViews') ? parseInt(localStorage.getItem('pageViews')) : 0;
     viewsCount++;
     localStorage.setItem('pageViews', viewsCount);
@@ -1382,6 +1431,20 @@
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
         }, duration);
+    }
+
+    function scrollToMod(targetId) {
+        const element = document.getElementById(`mod-${targetId}`);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            element.classList.add('active');
+            setTimeout(() => {
+                element.classList.add('active');
+            }, 100);
+            showToast(`🔍 Переход к "${element.querySelector('.item-name, .brand-name')?.textContent || targetId}"`, 1000);
+        } else {
+            showToast(`❌ Мод "${targetId}" не найден`, 1000);
+        }
     }
 
     function updateTotalModsCount() {
@@ -1904,6 +1967,25 @@
             familyContent.classList.toggle('open');
         });
     }
+
+    // Аккордеон для обновлений
+    const updatesHeader = document.getElementById('updatesHeader');
+    const updatesSection = document.getElementById('updatesSection');
+    if (updatesHeader && updatesSection) {
+        updatesHeader.addEventListener('click', () => {
+            updatesSection.classList.toggle('open');
+        });
+    }
+
+    // Клик по элементам обновлений — скролл к моду
+    document.querySelectorAll('.update-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const targetId = item.getAttribute('data-target');
+            if (targetId) {
+                scrollToMod(targetId);
+            }
+        });
+    });
 
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
