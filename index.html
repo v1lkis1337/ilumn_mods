@@ -1146,6 +1146,9 @@
         <div class="updates-content">
             <div>
                 <div class="updates-list" id="updatesList">
+                    <div class="update-item" data-target="pain-redux" data-open-family="true">Pain Redux <span class="upd-date">(17.06.2026)</span></div>
+                    <div class="update-item" data-target="homixide-redux" data-open-family="true">HOMIXIDE REDUX <span class="upd-date">(17.06.2026)</span></div>
+                    <div class="update-item" data-target="skyline-redux" data-open-family="true">SKYLINE REDUX <span class="upd-date">(17.06.2026)</span></div>
                     <div class="update-item" data-target="x2-steps" data-open-family="true">X2 steps sounds <span class="upd-date">(16.06.2026)</span></div>
                     <div class="update-item" data-target="spec-lexaura" data-open-family="true">sound by LEXAURA <span class="upd-date">(16.06.2026)</span></div>
                     <div class="update-item" data-target="saig-spec" data-open-family="true">saig+spec <span class="upd-date">(16.06.2026)</span></div>
@@ -1153,7 +1156,6 @@
                     <div class="update-item" data-target="inc-redux" data-open-family="true">Inc Redux <span class="upd-date">(16.06.2026)</span></div>
                     <div class="update-item" data-target="ydarnik-redux-v2" data-open-family="true">Ydarnik Redux V2 <span class="upd-date">(16.06.2026)</span></div>
                     <div class="update-item" data-target="uzi-vanilla" data-open-family="true">Uzi Vanilla <span class="upd-date">(16.06.2026)</span></div>
-                    <div class="update-item" data-target="hanami-redux" data-open-family="false">Hanami Redux <span class="upd-date">(16.06.2026)</span></div>
                     <div class="update-item" data-target="allegri-redux-v3" data-open-family="true">Allegri Redux V3 <span class="upd-date">(16.06.2026)</span></div>
                 </div>
             </div>
@@ -1167,7 +1169,7 @@
         <div class="filter-buttons">
             <button class="filter-btn active" data-filter="all">Все</button>
             <button class="filter-btn" data-filter="sounds">🎧 Звуки</button>
-            <button class="filter-btn" data-filter="gunpac">🔫 Оружие</button>
+            <button class="filter-btn" data-filter="gunpac">🔫 GUNPAC</button>
             <button class="filter-btn" data-filter="timemap">⏰ TIME/MAP</button>
             <button class="filter-btn" data-filter="individual">👤 Индивидуальные</button>
             <button class="filter-btn" data-filter="family">👨‍👩‍👧‍👦 Семьи</button>
@@ -1250,11 +1252,11 @@
     </div>
 </div>
 
-<div class="build-version">0.07 upd 16.06.2026</div>
+<div class="build-version">0.08 upd 17.06.2026</div>
 
 <script>
     // === ДАННЫЕ ===
-    const DEFAULT_DATE = "16.06.2026";
+    const DEFAULT_DATE = "17.06.2026";
 
     let currentLang = 'ru';
 
@@ -1264,7 +1266,7 @@
             searchPlaceholder: "🔍 Поиск модов по всем категориям...",
             filterAll: "Все",
             filterSounds: "🎧 Звуки",
-            filterGunpac: "🔫 Оружие",
+            filterGunpac: "🔫 GUNPAC",
             filterTimemap: "⏰ TIME/MAP",
             filterIndividual: "👤 Индивидуальные",
             filterFamily: "👨‍👩‍👧‍👦 Семьи",
@@ -1303,7 +1305,7 @@
             searchPlaceholder: "🔍 Search mods in all categories...",
             filterAll: "All",
             filterSounds: "🎧 Sounds",
-            filterGunpac: "🔫 Gunpac",
+            filterGunpac: "🔫 GUNPAC",
             filterTimemap: "⏰ TIME/MAP",
             filterIndividual: "👤 Individual",
             filterFamily: "👨‍👩‍👧‍👦 Families",
@@ -1416,7 +1418,7 @@
     }
 
     // === ДАННЫЕ ===
-    // ЗВУКИ (объединены в одну плашку с версиями)
+    // ЗВУКИ
     const soundsData = [{
         name: "sound pack",
         current: { id: "sound-pack", name: "sound pack", downloads: 0, desc: "пак звуков", descEn: "sound pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
@@ -1427,16 +1429,16 @@
         ]
     }];
 
-    // GUNPAC (объединены в одну плашку с версиями)
+    // GUNPAC
     const gunpacData = [{
-        name: "gun pack",
-        current: { id: "gun-pack", name: "gun pack", downloads: 0, desc: "пак оружия", descEn: "gun pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        name: "gunpac",
+        current: { id: "gunpac-pack", name: "gunpac", downloads: 0, desc: "пак оружия", descEn: "gun pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
         versions: [
             { id: "aqua-gp", name: "AQUA GP", downloads: 0, desc: "AQUA GP от 699 x NEVERDIE", descEn: "AQUA GP by 699 x NEVERDIE", reviewUrl: "https://www.youtube.com/watch?v=oDT8IsnbUsM", downloadUrl: "https://drive.google.com/drive/folders/18S5z82rwkLji1kD2JiAUgO390E-F_mmC", hasLinks: true, date: DEFAULT_DATE }
         ]
     }];
 
-    // TIME/MAP (объединены в одну плашку с версиями)
+    // TIME/MAP
     const timemapData = [{
         name: "time / map",
         current: { id: "timemap-pack", name: "time / map", downloads: 0, desc: "таймциклы и карты", descEn: "timecycles and maps", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
@@ -1448,59 +1450,67 @@
         ]
     }];
 
-    const individualData = [
-        { id: "hanami-redux", name: "Hanami Redux", downloads: 0, desc: "редукс от sakuta/ЧАРЫ/mirz", descEn: "Redux from sakuta/CHARY/mirz", reviewUrl: "https://www.youtube.com/watch?v=VG7fGad0OH8", downloadUrl: "https://drive.google.com/drive/folders/19_i1_kO0SjpKsCtH7yu92k1eBeeBDqul", hasLinks: true, date: DEFAULT_DATE }
-    ];
+    // ИНДИВИДУАЛЬНЫЕ (объединены в одну плашку с версиями)
+    const individualData = [{
+        name: "individual pack",
+        current: { id: "individual-pack", name: "individual pack", downloads: 0, desc: "пак индивидуальных редуксов", descEn: "individual redux pack", reviewUrl: "", downloadUrl: "", hasLinks: false, date: "15.06.2026" },
+        versions: [
+            { id: "hanami-redux", name: "Hanami Redux", downloads: 0, desc: "редукс от sakuta/ЧАРЫ/mirz", descEn: "Redux from sakuta/CHARY/mirz", reviewUrl: "https://www.youtube.com/watch?v=VG7fGad0OH8", downloadUrl: "https://drive.google.com/drive/folders/19_i1_kO0SjpKsCtH7yu92k1eBeeBDqul", hasLinks: true, date: "16.06.2026" },
+            { id: "pain-redux", name: "Pain Redux", downloads: 0, desc: "редукс от Opher x mirz", descEn: "Redux from Opher x mirz", reviewUrl: "https://www.youtube.com/watch?v=IWOFsHUKEU8", downloadUrl: "https://drive.google.com/drive/folders/1wg6IbQFuMFjhevSZO7vX077Pf-57fX2D", hasLinks: true, date: DEFAULT_DATE },
+            { id: "homixide-redux", name: "HOMIXIDE REDUX", downloads: 0, desc: "редукс от HOMIXIDE", descEn: "Redux from HOMIXIDE", reviewUrl: "https://www.youtube.com/watch?v=LsW0ArZskUA", downloadUrl: "https://drive.google.com/drive/folders/1cYZAvFK9Df1QrqhPOQOune4MibdS3roW", hasLinks: true, date: DEFAULT_DATE },
+            { id: "skyline-redux", name: "SKYLINE REDUX", downloads: 0, desc: "редукс от 44 clxn", descEn: "Redux from 44 clxn", reviewUrl: "https://www.youtube.com/watch?v=nAen5MyHwgs", downloadUrl: "https://drive.google.com/drive/folders/1IrXrIDylqAtVGFR2cwbZiSfiPJFpXFZO", hasLinks: true, date: DEFAULT_DATE }
+        ]
+    }];
 
     const familyBrands = [
         { 
             name: "Gucci", 
-            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, desc: "редукс от Gucci V3", descEn: "Redux from Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: DEFAULT_DATE }, 
-            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, desc: "редукс от Gucci V2", descEn: "Redux from Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: DEFAULT_DATE }] 
+            current: { id: "gucci-v3", name: "Gucci V3", downloads: 0, desc: "редукс от Gucci V3", descEn: "Redux from Gucci V3", reviewUrl: "https://www.youtube.com/watch?v=ZJwjCsNIWOk", downloadUrl: "https://drive.google.com/drive/folders/1N7cX8zL_WE6XqvXSJ8Q4cTqs4MBFAlRp", hasLinks: true, date: "16.06.2026" }, 
+            versions: [{ id: "gucci-v2", name: "Gucci V2", downloads: 0, desc: "редукс от Gucci V2", descEn: "Redux from Gucci V2", reviewUrl: "https://www.youtube.com/watch?v=vt_ZK0rVqOA", downloadUrl: "https://drive.google.com/drive/folders/1eMm0UP2De2th20o4Udlqq85U5MUZQWpL", hasLinks: true, date: "16.06.2026" }] 
         },
         { 
             name: "Glow", 
-            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, desc: "редукс от Glow", descEn: "Redux from Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "glow-redux", name: "Glow Redux", downloads: 0, desc: "редукс от Glow", descEn: "Redux from Glow", reviewUrl: "https://www.youtube.com/watch?v=xS6DCNdU3qQ&feature=youtu.be", downloadUrl: "https://drive.google.com/drive/folders/17faNqLqYKFQEtya2Reom8RSk7GDq2ceK", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Skye", 
-            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, desc: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: DEFAULT_DATE }, 
-            versions: [{ id: "skye-gng-redux", name: "Skye GNG Redux", downloads: 0, desc: "редукс от Skye GNG", descEn: "Redux from Skye GNG", reviewUrl: "https://www.youtube.com/watch?v=-CGH6HWXoUw", downloadUrl: "https://drive.google.com/file/d/1zyjdXvkfWG_x0qCjnG6LoGbiQQWXqye4/view", hasLinks: true, date: DEFAULT_DATE }] 
+            current: { id: "skye-redux", name: "Skye Redux", downloads: 0, desc: "редукс от Skye", descEn: "Redux from Skye", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/1k_h_1j4Rl3d-XPRhca0MBfm1iMlKOVeD", hasLinks: true, date: "16.06.2026" }, 
+            versions: [{ id: "skye-gng-redux", name: "Skye GNG Redux", downloads: 0, desc: "редукс от Skye GNG", descEn: "Redux from Skye GNG", reviewUrl: "https://www.youtube.com/watch?v=-CGH6HWXoUw", downloadUrl: "https://drive.google.com/file/d/1zyjdXvkfWG_x0qCjnG6LoGbiQQWXqye4/view", hasLinks: true, date: "16.06.2026" }] 
         },
         { 
             name: "Blade", 
-            current: { id: "blade-v2", name: "Blade V2", downloads: 0, desc: "редукс от Blade V2", descEn: "Redux from Blade V2", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/11Ua5MyDpNpeVylish-W_qM8PJ84QfntO", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "blade-v2", name: "Blade V2", downloads: 0, desc: "редукс от Blade V2", descEn: "Redux from Blade V2", reviewUrl: "", downloadUrl: "https://drive.google.com/drive/folders/11Ua5MyDpNpeVylish-W_qM8PJ84QfntO", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Sacred", 
-            current: { id: "sacred-v2", name: "Sacred V2", downloads: 0, desc: "редукс от Sacred V2", descEn: "Redux from Sacred V2", reviewUrl: "https://www.youtube.com/watch?v=ngUPEP6ZhqQ", downloadUrl: "https://drive.google.com/drive/folders/1hpGS8DWUONlSIuMw8p7jnwwrFpkgP30z", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "sacred-v2", name: "Sacred V2", downloads: 0, desc: "редукс от Sacred V2", descEn: "Redux from Sacred V2", reviewUrl: "https://www.youtube.com/watch?v=ngUPEP6ZhqQ", downloadUrl: "https://drive.google.com/drive/folders/1hpGS8DWUONlSIuMw8p7jnwwrFpkgP30z", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Screamz", 
-            current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, desc: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "divine-redux", name: "DIVINE REDUX", downloads: 0, desc: "редукс от Screamz", descEn: "Redux from Screamz", reviewUrl: "https://www.youtube.com/watch?v=khT_HwrlCgE", downloadUrl: "https://drive.google.com/drive/folders/1j0wFmaSqRWrVpGFPE-s0QI2FhttfhdOc", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Inc", 
-            current: { id: "inc-redux", name: "Inc Redux", downloads: 0, desc: "редукс от Inc", descEn: "Redux from Inc", reviewUrl: "https://www.youtube.com/watch?v=qeJBWFrlrJs", downloadUrl: "https://drive.google.com/drive/folders/1xuxMS1KNV5GTD0kbaK84kg6lQMxwbiYF", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "inc-redux", name: "Inc Redux", downloads: 0, desc: "редукс от Inc", descEn: "Redux from Inc", reviewUrl: "https://www.youtube.com/watch?v=qeJBWFrlrJs", downloadUrl: "https://drive.google.com/drive/folders/1xuxMS1KNV5GTD0kbaK84kg6lQMxwbiYF", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Ydarnik", 
-            current: { id: "ydarnik-redux-v2", name: "Ydarnik Redux V2", downloads: 0, desc: "редукс от Ydarnik V2", descEn: "Redux from Ydarnik V2", reviewUrl: "https://www.youtube.com/watch?v=jWHYcVH27wQ", downloadUrl: "https://drive.google.com/drive/folders/1phhiVPVL9sR3tyd4JJ2Ns_GX83fb7NCn", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "ydarnik-redux-v2", name: "Ydarnik Redux V2", downloads: 0, desc: "редукс от Ydarnik V2", descEn: "Redux from Ydarnik V2", reviewUrl: "https://www.youtube.com/watch?v=jWHYcVH27wQ", downloadUrl: "https://drive.google.com/drive/folders/1phhiVPVL9sR3tyd4JJ2Ns_GX83fb7NCn", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Uzi", 
-            current: { id: "uzi-vanilla", name: "Uzi Vanilla", downloads: 0, desc: "редукс от Uzi", descEn: "Redux from Uzi", reviewUrl: "https://www.youtube.com/watch?v=yNR_Vggh__8", downloadUrl: "https://drive.google.com/drive/folders/1RM86ioStZpJ_CgsSCoN61iiLjX9Vll7y", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "uzi-vanilla", name: "Uzi Vanilla", downloads: 0, desc: "редукс от Uzi", descEn: "Redux from Uzi", reviewUrl: "https://www.youtube.com/watch?v=yNR_Vggh__8", downloadUrl: "https://drive.google.com/drive/folders/1RM86ioStZpJ_CgsSCoN61iiLjX9Vll7y", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         },
         { 
             name: "Allegri", 
-            current: { id: "allegri-redux-v3", name: "Allegri Redux V3", downloads: 0, desc: "редукс от Allegri V3", descEn: "Redux from Allegri V3", reviewUrl: "https://www.youtube.com/watch?v=ZpKjP-jxJfk", downloadUrl: "https://drive.google.com/drive/folders/1Pb9dymZK3LT04FBpYHCUCte89leD2cMC", hasLinks: true, date: DEFAULT_DATE }, 
+            current: { id: "allegri-redux-v3", name: "Allegri Redux V3", downloads: 0, desc: "редукс от Allegri V3", descEn: "Redux from Allegri V3", reviewUrl: "https://www.youtube.com/watch?v=ZpKjP-jxJfk", downloadUrl: "https://drive.google.com/drive/folders/1Pb9dymZK3LT04FBpYHCUCte89leD2cMC", hasLinks: true, date: "16.06.2026" }, 
             versions: [] 
         }
     ];
@@ -1605,8 +1615,10 @@
         timemapData.forEach(item => {
             total += 1 + (item.versions ? item.versions.length : 0);
         });
-        total += individualData.length +
-            familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
+        individualData.forEach(item => {
+            total += 1 + (item.versions ? item.versions.length : 0);
+        });
+        total += familyBrands.reduce((sum, b) => sum + 1 + b.versions.length, 0);
         document.getElementById('totalModsCount').innerText = `${t('totalMods')} ${total}`;
     }
 
@@ -1807,125 +1819,6 @@
         attachVersionEvents(container);
     }
 
-    function renderIndividual() {
-        const container = document.getElementById('individualList');
-        let filtered = [...individualData];
-        
-        if (globalSearchQuery) {
-            filtered = filtered.filter(item => 
-                item.name.toLowerCase().includes(globalSearchQuery.toLowerCase()) ||
-                getDesc(item).toLowerCase().includes(globalSearchQuery.toLowerCase())
-            );
-        }
-        
-        if (currentFilter !== 'all' && currentFilter !== 'individual') {
-            filtered = [];
-        }
-        
-        if (filtered.length === 0 && currentFilter !== 'all' && currentFilter !== 'individual') {
-            container.innerHTML = '';
-            return;
-        }
-        
-        container.innerHTML = filtered.map(item => `
-            <li class="glass-item" id="mod-${item.id}">
-                <div class="item-main-row">
-                    <div class="item-buttons">
-                        <button class="btn-review ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
-                        <button class="btn-download ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
-                        <button class="btn-copy" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
-                    </div>
-                    <div class="item-info">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-date">last upd ${item.date}</div>
-                    </div>
-                </div>
-                <div class="item-expand">
-                    <div class="expand-content">
-                        <div class="expand-desc">${getDesc(item)}</div>
-                    </div>
-                </div>
-            </li>
-        `).join('');
-        
-        // Attach events для кнопок внутри individual
-        container.querySelectorAll('.btn-review.active-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
-            });
-        });
-        container.querySelectorAll('.btn-download.active-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
-            });
-        });
-        container.querySelectorAll('.btn-copy').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
-            });
-        });
-        container.querySelectorAll('.glass-item').forEach(item => {
-            const mainRow = item.querySelector('.item-main-row');
-            if (mainRow) {
-                mainRow.addEventListener('click', (e) => {
-                    if (e.target.closest('button')) return;
-                    item.classList.toggle('active');
-                });
-            }
-        });
-    }
-
-    function renderTop() {
-        const allRedux = [];
-        familyBrands.forEach(brand => {
-            allRedux.push(brand.current);
-            brand.versions.forEach(v => allRedux.push(v));
-        });
-        const top3 = [...allRedux].sort((a, b) => b.downloads - a.downloads).slice(0, 3);
-        
-        const container = document.getElementById('topReduxList');
-        container.innerHTML = top3.map((item, idx) => {
-            const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉';
-            return `
-                <div class="top-item">
-                    <div class="top-buttons">
-                        <button class="top-review-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
-                        <button class="top-download-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
-                        <button class="top-copy-btn" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
-                    </div>
-                    <div class="top-rank">${medal}</div>
-                    <div class="top-info">
-                        <div class="top-name">${item.name}</div>
-                        <div class="top-date">📅 ${item.date}</div>
-                    </div>
-                    <div class="top-downloads-right">📥 ${item.downloads}</div>
-                </div>
-            `;
-        }).join('');
-        
-        document.querySelectorAll('.top-review-btn.active-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
-            });
-        });
-        document.querySelectorAll('.top-download-btn.active-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
-            });
-        });
-        document.querySelectorAll('.top-copy-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
-            });
-        });
-    }
-
     function renderBrands() {
         const container = document.getElementById('brandsList');
         let filtered = [...familyBrands];
@@ -1999,11 +1892,59 @@
         attachFamilyEvents();
     }
 
+    function renderTop() {
+        const allRedux = [];
+        familyBrands.forEach(brand => {
+            allRedux.push(brand.current);
+            brand.versions.forEach(v => allRedux.push(v));
+        });
+        const top3 = [...allRedux].sort((a, b) => b.downloads - a.downloads).slice(0, 3);
+        
+        const container = document.getElementById('topReduxList');
+        container.innerHTML = top3.map((item, idx) => {
+            const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉';
+            return `
+                <div class="top-item">
+                    <div class="top-buttons">
+                        <button class="top-review-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.reviewUrl}" ${!item.hasLinks ? 'disabled' : ''}>🔍</button>
+                        <button class="top-download-btn ${getButtonClass(item.hasLinks)}" data-name="${item.name.replace(/'/g, "\\'")}" data-url="${item.downloadUrl}" ${!item.hasLinks ? 'disabled' : ''}>⬇️</button>
+                        <button class="top-copy-btn" data-name="${item.name.replace(/'/g, "\\'")}" data-id="${item.id}">🔗</button>
+                    </div>
+                    <div class="top-rank">${medal}</div>
+                    <div class="top-info">
+                        <div class="top-name">${item.name}</div>
+                        <div class="top-date">📅 ${item.date}</div>
+                    </div>
+                    <div class="top-downloads-right">📥 ${item.downloads}</div>
+                </div>
+            `;
+        }).join('');
+        
+        document.querySelectorAll('.top-review-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openReview(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.top-download-btn.active-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                handleDownload(btn.getAttribute('data-url'), btn.getAttribute('data-name'), e);
+            });
+        });
+        document.querySelectorAll('.top-copy-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                copyModLink(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
+            });
+        });
+    }
+
     function applyFilters() {
         renderItemWithVersions('soundsList', soundsData);
         renderItemWithVersions('gunpacList', gunpacData);
         renderItemWithVersions('timemapList', timemapData);
-        renderIndividual();
+        renderItemWithVersions('individualList', individualData);
         renderBrands();
         renderTop();
     }
